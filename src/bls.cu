@@ -116,8 +116,11 @@ int main(int argc, char *argv[]) {
     cudaMalloc((void **)&d_weight_sum, sizeof(double));
     cudaMemcpy(d_weight_sum, &h_weight_sum, sizeof(double), cudaMemcpyHostToDevice);
 
-    int blockSize = 128;
+    int blockSize = 256;
     int numBlocks = (n + blockSize - 1) / blockSize;
+    if (n % blockSize != 0) {
+        numBlocks++;
+    }
 
     auto start = chrono::high_resolution_clock::now();
 
