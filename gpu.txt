@@ -1,0 +1,3 @@
+Period: 93.3815
+D Value: -2.24005e+11
+Time: 153 s

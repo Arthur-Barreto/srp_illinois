@@ -6,12 +6,9 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <stdlib.h>
 #include <thrust/device_vector.h>
-#include <thrust/functional.h>
 #include <thrust/host_vector.h>
-#include <thrust/iterator/counting_iterator.h>
-#include <thrust/reduce.h>
-#include <thrust/transform_reduce.h>
 #include <vector>
 
 using namespace std;
@@ -21,96 +18,44 @@ struct BlsResult {
     double d_value;
 };
 
-struct WeightSum {
-    __host__ __device__ double operator()(const double &x) const {
-        return pow(x, -2);
+__global__ void weight_sum_kernel(const double *flux_err, double *weight, int n) {
+    int idx = blockDim.x * blockIdx.x + threadIdx.x;
+    if (idx < n) {
+        atomicAdd(weight, pow(flux_err[idx], -2));
     }
-};
-
-struct WeightCalculation {
-    double sum_w;
-    WeightCalculation(double _sum_w) : sum_w(_sum_w) {}
-
-    __host__ __device__ double operator()(const double &x) const {
-        return sum_w * pow(x, -2);
-    }
-};
-
-struct RValue {
-    double *weight;
-    int i1, i2;
-    RValue(double *_weight, int _i1, int _i2) : weight(_weight), i1(_i1), i2(_i2) {}
-
-    __host__ __device__ double operator()(const int &x) const {
-        double r = 0;
-        for (int i = i1; i <= i2; i++) {
-            r += weight[i];
-        }
-        return r;
-    }
-};
-
-struct SValue {
-    double *weight;
-    double *flux;
-    int i1, i2;
-    SValue(double *_weight, double *_flux, int _i1, int _i2) : weight(_weight), flux(_flux), i1(_i1), i2(_i2) {}
-
-    __host__ __device__ double operator()(const int &x) const {
-        double s = 0;
-        for (int i = i1; i <= i2; i++) {
-            s += (weight[i] * flux[i]);
-        }
-        return s;
-    }
-};
-
-struct DValue {
-    double *weight;
-    double *flux;
-    double r, s;
-    int size;
-    DValue(double *_weight, double *_flux, double _r, double _s, int _size) : weight(_weight), flux(_flux), r(_r), s(_s), size(_size) {}
-
-    __host__ __device__ double operator()(const int &x) const {
-        double aux = 0;
-        for (int i = 0; i < size; i++) {
-            aux += (weight[i] * pow(flux[i], 2));
-        }
-        return aux - pow(s, 2) / (r * (1 - r));
-    }
-};
-
-BlsResult my_bls(thrust::device_vector<double> &time, thrust::device_vector<double> &flux, thrust::device_vector<double> &flux_err) {
-    BlsResult result;
-    result.d_value = DBL_MAX;
-
-    double sum_w = thrust::transform_reduce(flux_err.begin(), flux_err.end(), WeightSum(), 0.0, thrust::plus<double>());
-
-    thrust::device_vector<double> weight(flux.size());
-    thrust::transform(flux_err.begin(), flux_err.end(), weight.begin(), WeightCalculation(sum_w));
-
-    for (int i1 = 0; i1 < flux.size(); i1++) {
-        for (int i2 = i1 + 1; i2 < flux.size(); i2++) {
-            double r_ = thrust::transform_reduce(thrust::counting_iterator<int>(0), thrust::counting_iterator<int>(flux.size()), RValue(thrust::raw_pointer_cast(weight.data()), i1, i2), 0.0, thrust::plus<double>());
-            double s_ = thrust::transform_reduce(thrust::counting_iterator<int>(0), thrust::counting_iterator<int>(flux.size()), SValue(thrust::raw_pointer_cast(weight.data()), thrust::raw_pointer_cast(flux.data()), i1, i2), 0.0, thrust::plus<double>());
-            double d_ = thrust::transform_reduce(thrust::counting_iterator<int>(0), thrust::counting_iterator<int>(flux.size()), DValue(thrust::raw_pointer_cast(weight.data()), thrust::raw_pointer_cast(flux.data()), r_, s_, flux.size()), 0.0, thrust::plus<double>());
-
-            double period = (time[i2] - time[i1]);
-
-            if (d_ < result.d_value) {
-                result.d_value = d_;
-                result.period = period;
-            }
-
-            cout << "i1: " << i1 << " i2: " << i2 << " period: " << period << " d: " << d_ << endl;
-        }
-    }
-
-    return result;
 }
 
-void readCSV(const string &filename, thrust::host_vector<double> &time, thrust::host_vector<double> &flux, thrust::host_vector<double> &flux_err) {
+__global__ void compute_weight(const double *flux_err, double *weight, double sum_w, int n) {
+    int idx = blockDim.x * blockIdx.x + threadIdx.x;
+    if (idx < n) {
+        weight[idx] = sum_w * pow(flux_err[idx], -2);
+    }
+}
+
+__global__ void bls_kernel(const double *time, const double *flux, const double *weight, int n, BlsResult *result) {
+    int idx1 = blockDim.x * blockIdx.x + threadIdx.x;
+    if (idx1 >= n)
+        return;
+
+    for (int idx2 = idx1 + 1; idx2 < n; idx2++) {
+        double r = 0, s = 0, aux = 0;
+        for (int i = idx1; i <= idx2; i++) {
+            r += weight[i];
+            s += weight[i] * flux[i];
+        }
+        for (int i = 0; i < n; i++) {
+            aux += weight[i] * pow(flux[i], 2);
+        }
+        double d = aux - pow(s, 2) / (r * (1 - r));
+        double period = time[idx2] - time[idx1];
+        if (d < result->d_value) {
+            result->d_value = d;
+            result->period = period;
+        }
+    }
+}
+
+void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err) {
     ifstream file(filename);
     string line;
 
@@ -119,6 +64,7 @@ void readCSV(const string &filename, thrust::host_vector<double> &time, thrust::
         return;
     }
 
+    // Read the header line
     if (getline(file, line)) {
         // Do nothing with the header line
     }
@@ -132,7 +78,7 @@ void readCSV(const string &filename, thrust::host_vector<double> &time, thrust::
             row.push_back(cell);
         }
 
-        if (row.size() >= 3) {
+        if (row.size() >= 3) { // Ensure there are at least 3 columns
             time.push_back(stod(row[0]));
             flux.push_back(stod(row[1]));
             flux_err.push_back(stod(row[2]));
@@ -149,24 +95,57 @@ int main(int argc, char *argv[]) {
     }
 
     string filename = argv[1];
-    thrust::host_vector<double> h_time, h_flux, h_flux_err;
+    vector<double> time, flux, flux_err;
 
-    readCSV(filename, h_time, h_flux, h_flux_err);
+    readCSV(filename, time, flux, flux_err);
+
+    int n = flux.size();
+
+    thrust::host_vector<double> h_time = time;
+    thrust::host_vector<double> h_flux = flux;
+    thrust::host_vector<double> h_flux_err = flux_err;
 
     thrust::device_vector<double> d_time = h_time;
     thrust::device_vector<double> d_flux = h_flux;
     thrust::device_vector<double> d_flux_err = h_flux_err;
+    thrust::device_vector<double> d_weight(n);
+
+    double h_weight_sum = 0;
+    double *d_weight_sum;
+
+    cudaMalloc((void **)&d_weight_sum, sizeof(double));
+    cudaMemcpy(d_weight_sum, &h_weight_sum, sizeof(double), cudaMemcpyHostToDevice);
+
+    int blockSize = 128;
+    int numBlocks = (n + blockSize - 1) / blockSize;
+
+    weight_sum_kernel<<<numBlocks, blockSize>>>(thrust::raw_pointer_cast(d_flux_err.data()), d_weight_sum, n);
+    cudaMemcpy(&h_weight_sum, d_weight_sum, sizeof(double), cudaMemcpyDeviceToHost);
+
+    h_weight_sum = pow(h_weight_sum, -1);
+    compute_weight<<<numBlocks, blockSize>>>(thrust::raw_pointer_cast(d_flux_err.data()), thrust::raw_pointer_cast(d_weight.data()), h_weight_sum, n);
+
+    BlsResult h_result;
+    h_result.d_value = LONG_MAX;
+    BlsResult *d_result;
+
+    cudaMalloc((void **)&d_result, sizeof(BlsResult));
+    cudaMemcpy(d_result, &h_result, sizeof(BlsResult), cudaMemcpyHostToDevice);
 
     auto start = chrono::high_resolution_clock::now();
 
-    BlsResult result = my_bls(d_time, d_flux, d_flux_err);
+    bls_kernel<<<numBlocks, blockSize>>>(thrust::raw_pointer_cast(d_time.data()), thrust::raw_pointer_cast(d_flux.data()), thrust::raw_pointer_cast(d_weight.data()), n, d_result);
+    cudaMemcpy(&h_result, d_result, sizeof(BlsResult), cudaMemcpyDeviceToHost);
 
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::seconds>(end - start);
 
-    cout << "Period: " << result.period << endl;
-    cout << "D Value: " << result.d_value << endl;
+    cout << "Period: " << h_result.period << endl;
+    cout << "D Value: " << h_result.d_value << endl;
     cout << "Time: " << duration.count() << " s" << endl;
+
+    cudaFree(d_weight_sum);
+    cudaFree(d_result);
 
     return 0;
 }

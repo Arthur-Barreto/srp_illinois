@@ -12,36 +12,36 @@
 using namespace std;
 
 struct BlsResult {
-    long double period;
-    long double d_value;
+    double period;
+    double d_value;
 };
 
-long double weight_sum(vector<long double> flux_err) {
-    long double weight = 0;
+double weight_sum(vector<double> flux_err) {
+    double weight = 0;
     for (int i = 0; i < flux_err.size(); i++) {
         weight += pow(flux_err[i], -2);
     }
     return pow(weight, -1);
 }
 
-long double r_value(int i1, int i2, vector<long double> weight) {
-    long double r = 0;
+double r_value(int i1, int i2, vector<double> weight) {
+    double r = 0;
     for (int i = i1; i <= i2; i++) {
         r += weight[i];
     }
     return r;
 }
 
-long double s_value(int i1, int i2, vector<long double> weight, vector<long double> flux) {
-    long double s = 0;
+double s_value(int i1, int i2, vector<double> weight, vector<double> flux) {
+    double s = 0;
     for (int i = i1; i <= i2; i++) {
         s += (weight[i] * flux[i]);
     }
     return s;
 }
 
-long double d_value(vector<long double> weight, vector<long double> flux, long double r, long double s) {
-    long double aux = 0;
+double d_value(vector<double> weight, vector<double> flux, double r, double s) {
+    double aux = 0;
 
     for (int i = 0; i < weight.size(); i++) {
         aux += (weight[i] * pow(flux[i], 2));
@@ -50,11 +50,11 @@ long double d_value(vector<long double> weight, vector<long double> flux, long d
     return aux - pow(s, 2) / (r * (1 - r));
 }
 
-BlsResult my_bls(vector<long double> time, vector<long double> flux, vector<long double> flux_err) {
+BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_err) {
 
-    long double sum_w = weight_sum(flux_err);
+    double sum_w = weight_sum(flux_err);
 
-    vector<long double> weight(flux.size());
+    vector<double> weight(flux.size());
     for (int i = 0; i < flux.size(); i++) {
         weight[i] = sum_w * pow(flux_err[i], -2);
     }
@@ -62,13 +62,13 @@ BlsResult my_bls(vector<long double> time, vector<long double> flux, vector<long
     BlsResult data;
     data.d_value = INT_MAX;
 
-    long double period;
+    double period;
 
     for (int i1 = 0; i1 < flux.size(); i1++) {
         for (int i2 = i1 + 1; i2 < flux.size(); i2++) {
-            long double r_ = r_value(i1, i2, weight);
-            long double s_ = s_value(i1, i2, weight, flux);
-            long double d_ = d_value(weight, flux, r_, s_);
+            double r_ = r_value(i1, i2, weight);
+            double s_ = s_value(i1, i2, weight, flux);
+            double d_ = d_value(weight, flux, r_, s_);
 
             period = (time[i2] - time[i1]);
 
@@ -77,14 +77,14 @@ BlsResult my_bls(vector<long double> time, vector<long double> flux, vector<long
                 data.period = period;
             }
 
-            cout << "i1: " << i1 << " i2: " << i2 << " period: " << period << " d: " << d_ << endl;
+            // cout << "i1: " << i1 << " i2: " << i2 << " period: " << period << " d: " << d_ << endl;
         }
     }
 
     return data;
 }
 
-void readCSV(const string &filename, vector<long double> &time, vector<long double> &flux, vector<long double> &flux_err) {
+void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err) {
 
     ifstream file(filename);
     string line;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     }
 
     string filename = argv[1];
-    vector<long double> time, flux, flux_err;
+    vector<double> time, flux, flux_err;
 
     readCSV(filename, time, flux, flux_err);
 
