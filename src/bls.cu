@@ -122,13 +122,16 @@ int main(int argc, char *argv[]) {
         numBlocks++;
     }
 
+    dim3 dimGrid(numBlocks, 1, 1);
+    dim3 dimBlock(blockSize, 1, 1);
+
     auto start = chrono::high_resolution_clock::now();
 
-    weight_sum_kernel<<<numBlocks, blockSize>>>(thrust::raw_pointer_cast(d_flux_err.data()), d_weight_sum, n);
+    weight_sum_kernel<<<dimGrid, dimBlock>>>(thrust::raw_pointer_cast(d_flux_err.data()), d_weight_sum, n);
     cudaMemcpy(&h_weight_sum, d_weight_sum, sizeof(double), cudaMemcpyDeviceToHost);
 
     h_weight_sum = pow(h_weight_sum, -1);
-    compute_weight<<<numBlocks, blockSize>>>(thrust::raw_pointer_cast(d_flux_err.data()), thrust::raw_pointer_cast(d_weight.data()), h_weight_sum, n);
+    compute_weight<<<dimGrid, dimBlock>>>(thrust::raw_pointer_cast(d_flux_err.data()), thrust::raw_pointer_cast(d_weight.data()), h_weight_sum, n);
 
     BlsResult h_result;
     h_result.d_value = LONG_MAX;
@@ -137,7 +140,7 @@ int main(int argc, char *argv[]) {
     cudaMalloc((void **)&d_result, sizeof(BlsResult));
     cudaMemcpy(d_result, &h_result, sizeof(BlsResult), cudaMemcpyHostToDevice);
 
-    bls_kernel<<<numBlocks, blockSize>>>(thrust::raw_pointer_cast(d_time.data()), thrust::raw_pointer_cast(d_flux.data()), thrust::raw_pointer_cast(d_weight.data()), n, d_result);
+    bls_kernel<<<dimGrid, dimBlock>>>(thrust::raw_pointer_cast(d_time.data()), thrust::raw_pointer_cast(d_flux.data()), thrust::raw_pointer_cast(d_weight.data()), n, d_result);
     cudaMemcpy(&h_result, d_result, sizeof(BlsResult), cudaMemcpyDeviceToHost);
 
     auto end = chrono::high_resolution_clock::now();
