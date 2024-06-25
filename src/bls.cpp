@@ -8,20 +8,18 @@
 #include <sstream>
 #include <stdlib.h>
 #include <vector>
+#include <float.h>
 
 using namespace std;
 
-struct BlsResult
-{
+struct BlsResult {
     double period;
     double d_value;
 };
 
-double weight_sum(vector<double> flux_err)
-{
+double weight_sum(vector<double> flux_err) {
     double weight = 0;
-    for (int i = 0; i < flux_err.size(); i++)
-    {
+    for (int i = 0; i < flux_err.size(); i++) {
         weight += pow(flux_err[i], -2);
     }
     return pow(weight, -1);
@@ -31,16 +29,14 @@ void precompute_cumulative_r_s(
     const vector<double> &weight,
     const vector<double> &flux,
     vector<double> &cumulative_r,
-    vector<double> &cumulative_s)
-{
+    vector<double> &cumulative_s) {
     double cr = weight[0];
     double cs = cr * flux[0];
 
     cumulative_r.push_back(cr);
     cumulative_s.push_back(cs);
 
-    for (int i = 1; i < weight.size(); i++)
-    {
+    for (int i = 1; i < weight.size(); i++) {
         const double &w = weight[i];
         const double &wf = w * flux[i];
         cr += w;
@@ -50,11 +46,9 @@ void precompute_cumulative_r_s(
     }
 }
 
-double sum_wff_value(vector<double> weight, vector<double> flux)
-{
+double sum_wff_value(vector<double> weight, vector<double> flux) {
     double aux = 0;
-    for (int i = 0; i < weight.size(); i++)
-    {
+    for (int i = 0; i < weight.size(); i++) {
         const double &w = weight[i];
         const double &f = flux[i];
         aux += w * f * f;
@@ -62,19 +56,17 @@ double sum_wff_value(vector<double> weight, vector<double> flux)
     return aux;
 }
 
-BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_err)
-{
+BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_err) {
 
     double sum_w = weight_sum(flux_err);
 
     vector<double> weight(flux.size());
-    for (int i = 0; i < flux.size(); i++)
-    {
+    for (int i = 0; i < flux.size(); i++) {
         weight[i] = sum_w * pow(flux_err[i], -2);
     }
 
     BlsResult data;
-    data.d_value = INT_MAX;
+    data.d_value = DBL_MAX;
 
     vector<double> cumulative_r, cumulative_s;
     precompute_cumulative_r_s(weight, flux, cumulative_r, cumulative_s);
@@ -83,58 +75,47 @@ BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_e
 
     double period;
 
-    for (int i1 = 0; i1 < flux.size(); i1++)
-    {
-        for (int i2 = i1 + 1; i2 < flux.size(); i2++)
-        {
+    for (int i1 = 0; i1 < flux.size(); i1++) {
+        for (int i2 = i1 + 1; i2 < flux.size(); i2++) {
             double r = cumulative_r[i2] - cumulative_r[i1];
             double s = cumulative_s[i2] - cumulative_s[i1];
             double d = aux - (s * s) / (r * (1 - r));
 
-            if (d < data.d_value)
-            {
+            if (d < data.d_value) {
                 data.d_value = d;
                 data.period = time[i2] - time[i1];
             }
-
-            // cout << "i1: " << i1 << " i2: " << i2 << " period: " << period << " d: " << d_ << endl;
         }
     }
 
     return data;
 }
 
-void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err)
-{
+void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err) {
 
     ifstream file(filename);
     string line;
 
-    if (!file.is_open())
-    {
+    if (!file.is_open()) {
         cerr << "Error opening file: " << filename << endl;
         return;
     }
 
     // Read the header line
-    if (getline(file, line))
-    {
+    if (getline(file, line)) {
         // Do nothing with the header line
     }
 
-    while (getline(file, line))
-    {
+    while (getline(file, line)) {
         stringstream lineStream(line);
         string cell;
         vector<string> row;
 
-        while (getline(lineStream, cell, ','))
-        {
+        while (getline(lineStream, cell, ',')) {
             row.push_back(cell);
         }
 
-        if (row.size() >= 3)
-        { // Ensure there are at least 3 columns
+        if (row.size() >= 3) { // Ensure there are at least 3 columns
             time.push_back(stod(row[0]));
             flux.push_back(stod(row[1]));
             flux_err.push_back(stod(row[2]));
@@ -144,11 +125,9 @@ void readCSV(const string &filename, vector<double> &time, vector<double> &flux,
     file.close();
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
-    if (argc != 2)
-    {
+    if (argc != 2) {
         cout << "Usage: " << argv[0] << " <filename>" << endl;
         return 1;
     }
