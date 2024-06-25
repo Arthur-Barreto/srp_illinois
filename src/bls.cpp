@@ -2,13 +2,13 @@
 #include <chrono>
 #include <climits>
 #include <cmath>
+#include <float.h>
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <sstream>
 #include <stdlib.h>
 #include <vector>
-#include <float.h>
 
 using namespace std;
 
@@ -77,8 +77,8 @@ BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_e
 
     for (int i1 = 0; i1 < flux.size(); i1++) {
         for (int i2 = i1 + 1; i2 < flux.size(); i2++) {
-            double r = cumulative_r[i2] - cumulative_r[i1];
-            double s = cumulative_s[i2] - cumulative_s[i1];
+            double r = cumulative_r[i2] - cumulative_r[i1] + weight[i1];
+            double s = cumulative_s[i2] - cumulative_s[i1] + weight[i1] * flux[i1];
             double d = aux - (s * s) / (r * (1 - r));
 
             if (d < data.d_value) {
