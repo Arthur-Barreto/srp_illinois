@@ -1,7 +1,30 @@
-all: bls gpu_bls
+# Compiler and flags
+CXX = g++
+NVCC = nvcc
+CXXFLAGS = -O3
+NVCCFLAGS = -arch=sm_75 -O3
 
-bls: src/bls.cpp
-	g++ -O3 src/bls.cpp -o build/bls 
+# Source files
+SRC_CPP = src/bls.cpp
+SRC_CU = src/bls.cu
 
-gpu_bls: src/bls.cu
-	nvcc -arch=sm_75 -O3 src/bls.cu -o build/gpu_bls 
+# Output files
+OUT_CPP = bls
+OUT_CU = gpu_bls
+
+# Default target
+all: $(OUT_CPP) $(OUT_CU)
+
+# Compile C++ source
+$(OUT_CPP): $(SRC_CPP)
+	$(CXX) $(CXXFLAGS) $< -o $@
+
+# Compile CUDA source
+$(OUT_CU): $(SRC_CU)
+	$(NVCC) $(NVCCFLAGS) $< -o $@
+
+# Clean target
+clean:
+	rm -f $(OUT_CPP) $(OUT_CU)
+
+.PHONY: all clean
