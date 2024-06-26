@@ -1,3 +1,0 @@
-Period: 93.4019
-D Value: -inf
-Time: 124 s
