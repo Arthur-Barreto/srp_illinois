@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <numeric>
 #include <sstream>
 #include <stdlib.h>
 #include <vector>
@@ -17,11 +18,10 @@ struct BlsResult {
     double d_value;
 };
 
-double weight_sum(vector<double> flux_err) {
-    double weight = 0;
-    for (int i = 0; i < flux_err.size(); i++) {
-        weight += pow(flux_err[i], -2);
-    }
+double weight_sum(const vector<double> &flux_err) {
+    double weight = accumulate(flux_err.begin(), flux_err.end(), 0.0, [](double sum, double val) {
+        return sum + pow(val, -2);
+    });
     return pow(weight, -1);
 }
 
@@ -30,13 +30,16 @@ void precompute_cumulative_r_s(
     const vector<double> &flux,
     vector<double> &cumulative_r,
     vector<double> &cumulative_s) {
+    cumulative_r.reserve(weight.size());
+    cumulative_s.reserve(weight.size());
+
     double cr = weight[0];
     double cs = cr * flux[0];
 
     cumulative_r.push_back(cr);
     cumulative_s.push_back(cs);
 
-    for (int i = 1; i < weight.size(); i++) {
+    for (size_t i = 1; i < weight.size(); ++i) {
         const double &w = weight[i];
         const double &wf = w * flux[i];
         cr += w;
@@ -46,22 +49,17 @@ void precompute_cumulative_r_s(
     }
 }
 
-double sum_wff_value(vector<double> weight, vector<double> flux) {
-    double aux = 0;
-    for (int i = 0; i < weight.size(); i++) {
-        const double &w = weight[i];
-        const double &f = flux[i];
-        aux += w * f * f;
-    }
-    return aux;
+double sum_wff_value(const vector<double> &weight, const vector<double> &flux) {
+    return inner_product(weight.begin(), weight.end(), flux.begin(), 0.0, plus<>(), [](double w, double f) {
+        return w * f * f;
+    });
 }
 
-BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_err) {
-
+BlsResult my_bls(const vector<double> &time, const vector<double> &flux, const vector<double> &flux_err) {
     double sum_w = weight_sum(flux_err);
 
     vector<double> weight(flux.size());
-    for (int i = 0; i < flux.size(); i++) {
+    for (size_t i = 0; i < flux.size(); ++i) {
         weight[i] = sum_w * pow(flux_err[i], -2);
     }
 
@@ -73,10 +71,8 @@ BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_e
 
     const double aux = sum_wff_value(weight, flux);
 
-    double period;
-
-    for (int i1 = 0; i1 < flux.size(); i1++) {
-        for (int i2 = i1 + 1; i2 < flux.size(); i2++) {
+    for (size_t i1 = 0; i1 < flux.size(); ++i1) {
+        for (size_t i2 = i1 + 1; i2 < flux.size(); ++i2) {
             double r = cumulative_r[i2] - cumulative_r[i1] + weight[i1];
             double s = cumulative_s[i2] - cumulative_s[i1] + weight[i1] * flux[i1];
             double d = aux - (s * s) / (r * (1 - r));
@@ -92,19 +88,14 @@ BlsResult my_bls(vector<double> time, vector<double> flux, vector<double> flux_e
 }
 
 void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err) {
-
     ifstream file(filename);
-    string line;
-
     if (!file.is_open()) {
         cerr << "Error opening file: " << filename << endl;
         return;
     }
 
-    // Read the header line
-    if (getline(file, line)) {
-        // Do nothing with the header line
-    }
+    string line;
+    getline(file, line); // Read the header line
 
     while (getline(file, line)) {
         stringstream lineStream(line);
@@ -126,7 +117,6 @@ void readCSV(const string &filename, vector<double> &time, vector<double> &flux,
 }
 
 int main(int argc, char *argv[]) {
-
     if (argc != 2) {
         cout << "Usage: " << argv[0] << " <filename>" << endl;
         return 1;
@@ -137,7 +127,6 @@ int main(int argc, char *argv[]) {
 
     readCSV(filename, time, flux, flux_err);
 
-    // init chonos time
     auto start = chrono::high_resolution_clock::now();
 
     BlsResult result = my_bls(time, flux, flux_err);
