@@ -32,11 +32,14 @@
                 "ms-python.vscode-pylance",
                 "ms-toolsai.jupyter",
                 "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.makefile-tools",
                 "redhat.vscode-yaml"
             ],
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "bash"
             }
         }
-    }
+    },
+
+    "postCreateCommand": ["bash", "--login", ".devcontainer/post-create.sh"]
 }
