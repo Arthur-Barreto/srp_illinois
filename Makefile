@@ -9,8 +9,8 @@ SRC_CPP = src/bls.cpp
 SRC_CU = src/bls.cu
 
 # Output files
-OUT_CPP = bls
-OUT_CU = gpu_bls
+OUT_CPP = build/bls
+OUT_CU = build/gpu_bls
 
 # Default target
 all: $(OUT_CPP) $(OUT_CU)
