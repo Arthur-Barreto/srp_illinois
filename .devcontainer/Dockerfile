@@ -6,7 +6,16 @@ ARG PROJECT_NAME=ic
 RUN useradd -m $USERNAME \
     && apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y coreutils sudo git gcc g++ make cmake \
+    && apt-get install -y \
+        coreutils \
+        sudo \
+        git \
+        gcc \
+        g++ \
+        make \
+        cmake \
+        python3 \
+        python3-pip \
     && usermod -aG sudo user \
     && echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
