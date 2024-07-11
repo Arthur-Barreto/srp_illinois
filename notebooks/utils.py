@@ -3,6 +3,10 @@ import numpy as np
 import numpy.typing as npt
 
 
+def autophase(period, duration):
+    return np.arange(0, period, period / duration)
+
+
 def auto_max_min_period(t: npt.NDArray):
     # Compute the baseline.
     total_duration = np.ptp(t)
