@@ -1,5 +1,5 @@
-astropy==6.1.1
 astropy-iers-data==0.2024.6.17.0.31.35
+astropy==6.1.1
 astroquery==0.4.7
 asttokens==2.4.1
 autograd==1.6.2
@@ -37,11 +37,12 @@ keyring==25.2.1
 kiwisolver==1.4.5
 lightkurve==2.4.2
 MarkupSafe==2.1.5
-matplotlib==3.9.0
 matplotlib-inline==0.1.7
+matplotlib==3.9.0
 memoization==0.4.0
 more-itertools==10.3.0
 nest-asyncio==1.6.0
+numba
 numpy==2.0.0
 oktopus==0.1.2
 packaging==24.1
@@ -72,6 +73,9 @@ six==1.16.0
 soupsieve==2.5
 stack-data==0.6.3
 threadpoolctl==3.5.0
+torch
+torchaudio
+torchvision
 tornado==6.4.1
 tqdm==4.66.4
 traitlets==5.14.3
