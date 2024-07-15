@@ -40,8 +40,6 @@ T max_value(const std::vector<T> &v);
 template <typename T>
 T ptp(const std::vector<T> &v);
 
-std::vector<double> logspace(double start, double end, int num);
-
 std::vector<double> arange(double start, double end, double step);
 
 std::vector<double> auto_phase(double period, double duration);

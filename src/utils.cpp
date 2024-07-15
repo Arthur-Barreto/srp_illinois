@@ -18,17 +18,6 @@ T ptp(const vector<T> &v) {
     return max_val - min_val;
 }
 
-vector<double> logspace(double start, double end, int num) {
-    vector<double> result(num);
-    double log_start = log10(start);
-    double log_end = log10(end);
-    double step = (log_end - log_start) / (num - 1);
-    for (int i = 0; i < num; ++i) {
-        result[i] = pow(10, log_start + i * step);
-    }
-    return result;
-}
-
 vector<double> arange(double start, double end, double step) {
     vector<double> result;
     for (double value = start; value < end; value += step) {
