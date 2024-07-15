@@ -47,9 +47,6 @@ def eebls(n, t, x, nf, fmin, df, nb, qmi, qma):
 
     bpow = 0.0
 
-    nb1 = nb + 1
-    nbkma = nb + kma
-
     u = t - t[0]
     s = np.mean(x)
     v = x - s
