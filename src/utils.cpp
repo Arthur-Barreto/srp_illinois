@@ -152,15 +152,15 @@ vector<double> compute_weights(vector<double> &flux_err) {
 }
 
 double model(
-    double t_rel,
-    std::vector<double> &flux,
-    std::vector<double> &weights,
+    vector<double> &t_rel,
+    vector<double> &flux,
+    vector<double> &weights,
     double period,
     double duration,
     double phase) {
     vector<size_t> is_transit(flux.size());
     for (size_t i = 0; i < flux.size(); ++i) {
-        is_transit[i] = ((fmod(t_rel, period) >= phase) && fmod(t_rel, period) <= phase + duration) ? 1 : 0;
+        is_transit[i] = ((fmod(t_rel[i], period) >= phase) && fmod(t_rel[i], period) <= phase + duration) ? 1 : 0;
     }
 
     double r = inner_product(weights.begin(), weights.end(), is_transit.begin(), 0.0);
@@ -174,9 +174,41 @@ double model(
         return w * f * f;
     });
 
-    double d_value = wx - (s * *2) / (r * (1 - r)) + numeric_limits<double>::epsilon();
+    double d_value = wx - (s * s) / (r * (1 - r)) + numeric_limits<double>::epsilon();
 
     return d_value;
+}
+
+BLSResult bls(
+    vector<double> &time,
+    vector<double> &flux,
+    vector<double> &flux_err,
+    vector<SPECParameters> &s_params
+) {
+   compute_trel(time);
+   normalize(flux);
+   vector<double> weights = compute_weights(flux_err);
+
+    BLSResult result;
+    result.best_d_value = DBL_MAX;
+
+    for(const auto &params : s_params) {
+        double period = get<0>(params);
+        double duration = get<1>(params);
+        double phase = get<2>(params);
+
+        double d_value = model(time, flux, weights, period, duration, phase);
+
+        if (d_value < result.best_d_value) {
+            result.best_d_value = d_value;
+            result.best_period = period;
+            result.best_duration = duration;
+            result.best_phase = phase;
+        }
+
+    }
+
+    return result;
 }
 
 void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err) {

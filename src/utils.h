@@ -18,8 +18,9 @@
 
 struct BLSResult {
     double best_period;
-    double best_phase;
     double best_duration;
+    double best_phase;
+    double best_d_value;
 };
 
 struct PERIODParameters {
@@ -61,12 +62,19 @@ void normalize(std::vector<double> &flux);
 std::vector<double> compute_weights(std::vector<double> &flux_err);
 
 double model(
-    double t_rel,
+    std::vector<double> &t_rel,
     std::vector<double> &flux,
     std::vector<double> &weights,
     double period,
     double duration,
     double phase);
+
+BLSResult bls(
+    std::vector<double> &time,
+    std::vector<double> &flux,
+    std::vector<double> &flux_err,
+    std::vector<SPECParameters> &s_params
+);
 
 void readCSV(
     const string &filename,
