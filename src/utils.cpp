@@ -1,4 +1,4 @@
-#include "utils.h";
+#include "utils.h"
 using namespace std;
 
 template <typename T>
@@ -183,16 +183,15 @@ BLSResult bls(
     vector<double> &time,
     vector<double> &flux,
     vector<double> &flux_err,
-    vector<SPECParameters> &s_params
-) {
-   compute_trel(time);
-   normalize(flux);
-   vector<double> weights = compute_weights(flux_err);
+    vector<SPECParameters> &s_params) {
+    compute_trel(time);
+    normalize(flux);
+    vector<double> weights = compute_weights(flux_err);
 
     BLSResult result;
     result.best_d_value = DBL_MAX;
 
-    for(const auto &params : s_params) {
+    for (const auto &params : s_params) {
         double period = get<0>(params);
         double duration = get<1>(params);
         double phase = get<2>(params);
@@ -205,7 +204,6 @@ BLSResult bls(
             result.best_duration = duration;
             result.best_phase = phase;
         }
-
     }
 
     return result;
