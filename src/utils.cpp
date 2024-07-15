@@ -151,6 +151,33 @@ vector<double> compute_weights(vector<double> &flux_err) {
     return weights;
 }
 
+double model(
+    double t_rel,
+    std::vector<double> &flux,
+    std::vector<double> &weights,
+    double period,
+    double duration,
+    double phase) {
+    vector<size_t> is_transit(flux.size());
+    for (size_t i = 0; i < flux.size(); ++i) {
+        is_transit[i] = ((fmod(t_rel, period) >= phase) && fmod(t_rel, period) <= phase + duration) ? 1 : 0;
+    }
+
+    double r = inner_product(weights.begin(), weights.end(), is_transit.begin(), 0.0);
+
+    double s = 0.0;
+    for (size_t i = 0; i < flux.size(); ++i) {
+        s += weights[i] * flux[i] * is_transit[i];
+    }
+
+    double wx = inner_product(weights.begin(), weights.end(), flux.begin(), 0.0, plus<>(), [](double w, double f) {
+        return w * f * f;
+    });
+
+    double d_value = wx - (s * *2) / (r * (1 - r)) + numeric_limits<double>::epsilon();
+
+    return d_value;
+}
 
 void readCSV(const string &filename, vector<double> &time, vector<double> &flux, vector<double> &flux_err) {
     ifstream file(filename);

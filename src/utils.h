@@ -60,6 +60,14 @@ void normalize(std::vector<double> &flux);
 
 std::vector<double> compute_weights(std::vector<double> &flux_err);
 
+double model(
+    double t_rel,
+    std::vector<double> &flux,
+    std::vector<double> &weights,
+    double period,
+    double duration,
+    double phase);
+
 void readCSV(
     const string &filename,
     std::vector<double> &time,
