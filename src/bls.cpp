@@ -7,6 +7,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    cout << "Reading file: " << argv[1] << endl;
+
     string filename = argv[1];
     vector<double> time, flux, flux_err;
 
@@ -14,7 +16,7 @@ int main(int argc, char *argv[]) {
 
     auto start = chrono::high_resolution_clock::now();
 
-    vector<SPECParameters> s_params = spec_generator(time);
+    vector<SPECParameters> s_params = spec_generator_gambiarra(time);
     BLSResult result = bls(time, flux, flux_err, s_params);
 
     auto end = chrono::high_resolution_clock::now();
@@ -24,6 +26,8 @@ int main(int argc, char *argv[]) {
     cout << "Best duration: " << result.best_duration << endl;
     cout << "Best phase: " << result.best_phase << endl;
     cout << "Best d_value: " << result.best_d_value << endl;
+
+    cout << endl << "Execution time: " << duration.count() << " ms" << endl;
 
     return 0;
 }
