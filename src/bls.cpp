@@ -10,9 +10,26 @@ int main(int argc, char *argv[]) {
     cout << "Reading file: " << argv[1] << endl;
 
     string filename = argv[1];
-    vector<double> time, flux, flux_err;
+    // vector<double> time, flux, flux_err;
 
-    readCSV(filename, time, flux, flux_err);
+    // readCSV(filename, time, flux, flux_err);
+    // create fake data
+    double real_period = 50;
+    double real_phase = 5;
+    double real_duration = 0.1 * real_period;
+    double real_diff = 0.05;
+
+    double threshold = cos(M_PI * real_duration / real_period);
+    vector<double> time = linspace(0, 400, 4000);
+    vector<double> flux = (time);
+
+    for (size_t i = 0; i < time.size(); ++i) {
+        flux[i] = cos(2.0 * M_PI * (time[i] - real_phase - real_duration / 2.0) / real_period) > threshold;
+        flux[i] = 1.0 - real_diff * flux[i];
+    }
+    vector<double> flux_err(time.size(), 0.01);
+
+    // end of fake data
 
     auto start = chrono::high_resolution_clock::now();
 
