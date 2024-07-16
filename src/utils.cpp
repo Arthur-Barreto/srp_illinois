@@ -26,6 +26,15 @@ vector<double> arange(double start, double end, double step) {
     return result;
 }
 
+std::vector<double> linspace(double start, double end, size_t num) {
+    vector<double> result(num);
+    double step = (end - start) / (num - 1);
+    for (size_t i = 0; i < num; ++i) {
+        result[i] = start + i * step;
+    }
+    return result;
+}
+
 vector<double> auto_phase(double period, double duration) {
     double delta_t = int(period / duration);
     // create a vector that goes [0,period[, wirth delta_t steps
@@ -101,6 +110,23 @@ std::vector<SPECParameters> spec_generator(std::vector<double> &time) {
         for (const auto &d : durations) {
             vector<double> phases = auto_phase(p, d);
             for (const auto &phi : phases) {
+                spec_params.push_back(make_tuple(p, d, phi));
+            }
+        }
+    }
+
+    return spec_params;
+}
+
+std::vector<SPECParameters> spec_generator_gambiarra(std::vector<double> &time) {
+    PERIODParameters p_params = auto_max_min_period(time);
+    vector<double> periods = auto_period(p_params.minimum_period, p_params.maximum_period, p_params.total_duration);
+
+    vector<SPECParameters> spec_params;
+
+    for (const auto &p : linspace(45, 55, 101)) {
+        for (const auto &d : linspace(1, 11, 11)) {
+            for (const auto &phi : arange(0, p, 0.5)) {
                 spec_params.push_back(make_tuple(p, d, phi));
             }
         }

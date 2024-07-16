@@ -42,6 +42,8 @@ T ptp(const std::vector<T> &v);
 
 std::vector<double> arange(double start, double end, double step);
 
+std::vector<double> linspace(double start, double end, size_t num);
+
 std::vector<double> auto_phase(double period, double duration);
 
 PERIODParameters auto_max_min_period(std::vector<double> &time);
@@ -52,6 +54,8 @@ std::vector<double> auto_period(
     double total_duration = -1);
 
 std::vector<SPECParameters> spec_generator(std::vector<double> &time);
+
+std::vector<SPECParameters> spec_generator_gambiarra(std::vector<double> &time);
 
 void compute_trel(std::vector<double> &time);
 
