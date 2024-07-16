@@ -60,9 +60,9 @@ PERIODParameters auto_max_min_period(vector<double> &time) {
 }
 
 vector<double> auto_period(
-    double minimum_period = -1,
-    double maximum_period = -1,
-    double total_duration = -1) {
+    double minimum_period,
+    double maximum_period,
+    double total_duration) {
 
     // Check that the minimum and maxmimum period is positive.
     assert(minimum_period > 0 && "minimum_period must be positive");

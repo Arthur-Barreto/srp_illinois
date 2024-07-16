@@ -74,7 +74,7 @@ BLSResult bls(
     std::vector<SPECParameters> &s_params);
 
 void readCSV(
-    const string &filename,
+    const std::string &filename,
     std::vector<double> &time,
     std::vector<double> &flux,
     std::vector<double> &flux_err);
