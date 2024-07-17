@@ -26,7 +26,7 @@ vector<double> arange(double start, double end, double step) {
     return result;
 }
 
-std::vector<double> linspace(double start, double end, size_t num) {
+vector<double> linspace(double start, double end, size_t num) {
     vector<double> result(num);
     double step = (end - start) / (num - 1);
     for (size_t i = 0; i < num; ++i) {
@@ -89,7 +89,7 @@ vector<double> auto_period(
     double frequency_resolution = 1.0 / total_duration;
 
     // Compute the number of frequencies and the frequency grid
-    size_t nf = 1 + static_cast<int>(round((maximum_frequency - minimum_frequency) / frequency_resolution));
+    size_t nf = static_cast<int>(round((maximum_frequency - minimum_frequency) / frequency_resolution));
     vector<double> periods(nf);
     for (size_t i = 0; i < nf; ++i) {
         periods[i] = 1.0 / (maximum_frequency - frequency_resolution * i);
@@ -98,7 +98,7 @@ vector<double> auto_period(
     return periods;
 }
 
-std::vector<SPECParameters> spec_generator(std::vector<double> &time) {
+vector<SPECParameters> spec_generator(vector<double> &time) {
 
     PERIODParameters p_params = auto_max_min_period(time);
     vector<double> periods = auto_period(p_params.minimum_period, p_params.maximum_period, p_params.total_duration);
@@ -118,7 +118,7 @@ std::vector<SPECParameters> spec_generator(std::vector<double> &time) {
     return spec_params;
 }
 
-std::vector<SPECParameters> spec_generator_gambiarra(std::vector<double> &time) {
+vector<SPECParameters> spec_generator_gambiarra(vector<double> &time) {
     PERIODParameters p_params = auto_max_min_period(time);
     vector<double> periods = auto_period(p_params.minimum_period, p_params.maximum_period, p_params.total_duration);
 
@@ -135,18 +135,34 @@ std::vector<SPECParameters> spec_generator_gambiarra(std::vector<double> &time) 
     return spec_params;
 }
 
-void compute_trel(vector<double> &time) {
+vector<double> compute_trel(vector<double> &time) {
     double t0 = min_value(time);
-    for (auto &t : time) {
-        t -= t0;
+    vector<double> t_rel(time.size(), 0.0);
+
+    for (size_t i = 0; i < time.size(); ++i) {
+        t_rel[i] = time[i] - t0;
     }
+
+    return t_rel;
 }
 
-void normalize(vector<double> &flux) {
+vector<double> normalize(vector<double> &flux) {
+    vector<double> normalized_flux(flux.size());
     double mean_flux = accumulate(flux.begin(), flux.end(), 0.0) / flux.size();
-    for (auto &f : flux) {
-        f /= mean_flux + numeric_limits<double>::epsilon();
+
+    for (size_t i = 0; i < flux.size(); ++i) {
+        normalized_flux[i] = flux[i] - mean_flux;
     }
+
+    double squared_sum = inner_product(normalized_flux.begin(), normalized_flux.end(), normalized_flux.begin(), 0.0);
+
+    double sigma = sqrt(squared_sum / flux.size());
+
+    for (auto &f : normalized_flux) {
+        f /= (sigma + numeric_limits<double>::epsilon());
+    }
+
+    return normalized_flux;
 }
 
 vector<double> compute_weights(vector<double> &flux_err) {
@@ -199,8 +215,8 @@ BLSResult bls(
     vector<double> &flux,
     vector<double> &flux_err,
     vector<SPECParameters> &s_params) {
-    compute_trel(time);
-    normalize(flux);
+    vector<double> t_rel = compute_trel(time);
+    vector<double> normalized_flux = normalize(flux);
     vector<double> weights = compute_weights(flux_err);
 
     BLSResult result;

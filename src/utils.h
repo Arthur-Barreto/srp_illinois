@@ -16,17 +16,17 @@
 #include <tuple>
 #include <vector>
 
+struct PERIODParameters {
+    double minimum_period;
+    double maximum_period;
+    double total_duration;
+};
+
 struct BLSResult {
     double best_period;
     double best_duration;
     double best_phase;
     double best_d_value;
-};
-
-struct PERIODParameters {
-    double minimum_period;
-    double maximum_period;
-    double total_duration;
 };
 
 typedef std::tuple<double, double, double> SPECParameters;
@@ -57,9 +57,9 @@ std::vector<SPECParameters> spec_generator(std::vector<double> &time);
 
 std::vector<SPECParameters> spec_generator_gambiarra(std::vector<double> &time);
 
-void compute_trel(std::vector<double> &time);
+std::vector<double> compute_trel(std::vector<double> &time);
 
-void normalize(std::vector<double> &flux);
+std::vector<double> normalize(std::vector<double> &flux);
 
 std::vector<double> compute_weights(std::vector<double> &flux_err);
 
