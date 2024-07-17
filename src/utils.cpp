@@ -215,6 +215,7 @@ BLSResult bls(
     vector<double> &flux,
     vector<double> &flux_err,
     vector<SPECParameters> &s_params) {
+
     vector<double> t_rel = compute_trel(time);
     vector<double> normalized_flux = normalize(flux);
     vector<double> weights = compute_weights(flux_err);
@@ -227,7 +228,7 @@ BLSResult bls(
         double duration = get<1>(params);
         double phase = get<2>(params);
 
-        double d_value = model(time, flux, weights, period, duration, phase);
+        double d_value = model(t_rel, normalized_flux, weights, period, duration, phase);
 
         if (d_value < result.best_d_value) {
             result.best_d_value = d_value;
