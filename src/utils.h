@@ -44,6 +44,8 @@ std::vector<double> arange(double start, double end, double step);
 
 std::vector<double> linspace(double start, double end, size_t num);
 
+std::vector<double> logarithmic_space(double start, double end, size_t num);
+
 std::vector<double> auto_phase(double period, double duration);
 
 PERIODParameters auto_max_min_period(std::vector<double> &time);

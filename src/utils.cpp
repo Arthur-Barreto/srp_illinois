@@ -35,6 +35,15 @@ vector<double> linspace(double start, double end, size_t num) {
     return result;
 }
 
+vector<double> logarithmic_space(double start, double end, size_t num) {
+    vector<double> result(num);
+    double step = (log10(end) - log10(start)) / (num - 1);
+    for (size_t i = 0; i < num; ++i) {
+        result[i] = pow(10, log10(start) + i * step);
+    }
+    return result;
+}
+
 vector<double> auto_phase(double period, double duration) {
     double delta_t = int(period / duration);
     // create a vector that goes [0,period[, wirth delta_t steps
@@ -91,8 +100,9 @@ vector<double> auto_period(
     // Compute the number of frequencies and the frequency grid
     size_t nf = static_cast<int>(round((maximum_frequency - minimum_frequency) / frequency_resolution));
     vector<double> periods(nf);
+    double step = (maximum_frequency - minimum_frequency) / (nf - 1);
     for (size_t i = 0; i < nf; ++i) {
-        periods[i] = 1.0 / (maximum_frequency - frequency_resolution * i);
+        periods[i] = 1.0 / (minimum_frequency + i * step);
     }
 
     return periods;
@@ -105,8 +115,11 @@ vector<SPECParameters> spec_generator(vector<double> &time) {
 
     vector<SPECParameters> spec_params;
 
+    double frequency_resolution = 1.0 / ptp(time);
+    frequency_resolution *= frequency_resolution;
+
     for (const auto &p : periods) {
-        vector<double> durations = arange(0.01 * p, 0.05 * p, 1e-5);
+        vector<double> durations = logarithmic_space(0.01 * p, 0.05 * p, time.size());
         for (const auto &d : durations) {
             vector<double> phases = auto_phase(p, d);
             for (const auto &phi : phases) {
@@ -227,6 +240,11 @@ BLSResult bls(
         double period = get<0>(params);
         double duration = get<1>(params);
         double phase = get<2>(params);
+
+        // if period is equal to best period, go to the next iteration
+        if (fabs(period - result.best_period) < numeric_limits<double>::epsilon()) {
+            continue;
+        }
 
         double d_value = model(t_rel, normalized_flux, weights, period, duration, phase);
 
