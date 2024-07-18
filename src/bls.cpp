@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 
     auto start = chrono::high_resolution_clock::now();
 
-    vector<SPECParameters> s_params = spec_generator_gambiarra(time);
+    vector<SPECParameters> s_params = spec_generator(time);
 
     BLSResult result = bls(time, flux, flux_err, s_params);
 
