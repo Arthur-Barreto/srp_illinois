@@ -41,6 +41,7 @@ def autoperiod(
 
     # Estimate the required frequency spacing
     frequency_resolution = 1.0 / total_duration
+    frequency_resolution *= frequency_resolution
 
     # Because of the sparsity of a transit, this must be much finer than
     # the frequency resolution for a sinusoidal fit. For a sinusoidal fit,

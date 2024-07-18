@@ -96,6 +96,7 @@ vector<double> auto_period(
     double minimum_frequency = 1.0 / maximum_period;
     double maximum_frequency = 1.0 / minimum_period;
     double frequency_resolution = 1.0 / total_duration;
+    frequency_resolution *= frequency_resolution;
 
     // Compute the number of frequencies and the frequency grid
     size_t nf = static_cast<int>(round((maximum_frequency - minimum_frequency) / frequency_resolution));
@@ -115,11 +116,10 @@ vector<SPECParameters> spec_generator(vector<double> &time) {
 
     vector<SPECParameters> spec_params;
 
-    double frequency_resolution = 1.0 / ptp(time);
-    frequency_resolution *= frequency_resolution;
+    double step = ptp(time) / time.size();
 
     for (const auto &p : periods) {
-        vector<double> durations = logarithmic_space(0.01 * p, 0.05 * p, time.size());
+        vector<double> durations = arange(0.01 * p, 0.05 * p, step);
         for (const auto &d : durations) {
             vector<double> phases = auto_phase(p, d);
             for (const auto &phi : phases) {
@@ -253,6 +253,8 @@ BLSResult bls(
             result.best_period = period;
             result.best_duration = duration;
             result.best_phase = phase;
+
+            cout << "period: " << period << " d_value: " << d_value << endl;
         }
     }
 
