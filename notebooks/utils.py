@@ -4,7 +4,8 @@ import numpy.typing as npt
 
 
 def autophase(period, duration):
-    return np.arange(0, period, period / duration)
+    phases = np.linspace(0, period, int(np.ceil(period / duration)) + 1)
+    return phases
 
 
 def auto_max_min_period(t: npt.NDArray):
