@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     double real_diff = 0.05;
 
     double threshold = cosf64x(M_PI * real_duration / real_period);
-    vector<double> time = linspace(0, 400, 4000);
+    vector<double> time = linspace(0, 400, 10000);
     vector<double> flux(time.size());
 
     for (size_t i = 0; i < time.size(); ++i) {
@@ -35,9 +35,9 @@ int main(int argc, char *argv[]) {
 
     auto start = chrono::high_resolution_clock::now();
 
-    vector<SPECParameters> s_params = spec_generator(time);
+    vector<SPECParameters> s_params = spec_generator_gambiarra_omp(time);
 
-    BLSResult result = bls(time, flux, flux_err, s_params);
+    BLSResult result = bls_omp(time, flux, flux_err, s_params);
 
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
