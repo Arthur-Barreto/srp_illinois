@@ -366,7 +366,11 @@ vector<double> compute_weights_omp(vector<double> &flux_err) {
         weights[i] = 1.0 / (flux_err[i] * flux_err[i]);
     }
 
-    double sum_weights = accumulate(weights.begin(), weights.end(), 0.0);
+    double sum_weights = 0.0;
+#pragma omp parallel for reduction(+ : sum_weights)
+    for (size_t i = 0; i < flux_err.size(); ++i) {
+        sum_weights += weights[i];
+    }
 
     assert(fabs(sum_weights) > numeric_limits<double>::epsilon() && "Sum of weights must be greater than epsilon");
 
@@ -419,7 +423,11 @@ double model_omp(
         is_transit[i] = ((fmod(t_rel[i], period) >= phase) && fmod(t_rel[i], period) <= phase + duration) ? 1 : 0;
     }
 
-    double r = inner_product(weights.begin(), weights.end(), is_transit.begin(), 0.0);
+    double r = 0.0;
+#pragma omp parallel for reduction(+ : r)
+    for (size_t i = 0; i < flux.size(); ++i) {
+        r += weights[i] * is_transit[i];
+    }
 
     double s = 0.0;
 #pragma omp parallel for reduction(+ : s)
@@ -427,9 +435,11 @@ double model_omp(
         s += weights[i] * flux[i] * is_transit[i];
     }
 
-    double wx = inner_product(weights.begin(), weights.end(), flux.begin(), 0.0, plus<>(), [](double w, double f) {
-        return w * f * f;
-    });
+    double wx = 0.0;
+#pragma omp parallel for reduction(+ : wx)
+    for (size_t i = 0; i < flux.size(); ++i) {
+        wx += weights[i] * flux[i] * flux[i];
+    }
 
     double d_value = wx - (s * s) / (r * (1 - r)) + numeric_limits<double>::epsilon();
 
