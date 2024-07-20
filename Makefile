@@ -1,7 +1,7 @@
 # Compiler and flags
 CXX = g++
 NVCC = nvcc
-CXXFLAGS = -O3
+CXXFLAGS = -O3 -fopenmp
 NVCCFLAGS = -arch=sm_75 -O3
 
 # Source files
