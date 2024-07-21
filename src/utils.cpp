@@ -486,9 +486,9 @@ BLSResult bls_omp(
     vector<double> weights = compute_weights_omp(flux_err);
 
     BLSResult result;
-    result.best_d_value = DBL_MAX;
+    double aux_d_value = DBL_MAX;
 
-#pragma omp parallel for reduction(min : result.best_d_value)
+#pragma omp parallel for reduction(min : aux_d_value)
     for (size_t i = 0; i < s_params.size(); ++i) {
         double period = get<0>(s_params[i]);
         double duration = get<1>(s_params[i]);
@@ -498,7 +498,8 @@ BLSResult bls_omp(
 
 #pragma omp critical
         {
-            if (d_value < result.best_d_value) {
+            if (d_value < aux_d_value) {
+                aux_d_value = d_value;
                 result.best_d_value = d_value;
                 result.best_period = period;
                 result.best_duration = duration;
