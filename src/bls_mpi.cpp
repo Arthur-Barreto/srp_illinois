@@ -10,8 +10,9 @@ BLSResult bls_mpi(
     int rank,
     int size);
 
-int main(int argc, char *argv[]) {
+void minloc_reduction(void *in, void *inout, int *len, MPI_Datatype *dptr);
 
+int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
 
     int rank, size;
@@ -32,7 +33,7 @@ int main(int argc, char *argv[]) {
     double real_diff = 0.05;
 
     double threshold = cosf64x(M_PI * real_duration / real_period);
-    vector<double> time = linspace(0, 400, 10000);
+    vector<double> time = linspace(0, 400, 5000);
     vector<double> flux(time.size());
 
     for (size_t i = 0; i < time.size(); ++i) {
@@ -47,7 +48,7 @@ int main(int argc, char *argv[]) {
     auto start = chrono::high_resolution_clock::now();
 
     vector<SPECParameters> s_params = spec_generator_gambiarra_omp(time);
-    BLSResult result = bls_omp(time, flux, flux_err, s_params);
+    BLSResult result = bls_mpi(time, flux, flux_err, s_params, rank, size);
 
     MPI_Finalize();
 
@@ -63,6 +64,17 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
+}
+
+void minloc_reduction(void *in, void *inout, int *len, MPI_Datatype *dptr) {
+    BLSResult *in_vals = static_cast<BLSResult *>(in);
+    BLSResult *inout_vals = static_cast<BLSResult *>(inout);
+
+    for (int i = 0; i < *len; ++i) {
+        if (in_vals[i].best_d_value < inout_vals[i].best_d_value) {
+            inout_vals[i] = in_vals[i];
+        }
+    }
 }
 
 BLSResult bls_mpi(
@@ -85,6 +97,11 @@ BLSResult bls_mpi(
     size_t start_idx = (rank * num_params) / size;
     size_t end_idx = ((rank + 1) * num_params) / size;
 
+    double local_best_d_value = DBL_MAX;
+    double local_best_period = 0.0;
+    double local_best_duration = 0.0;
+    double local_best_phase = 0.0;
+
 #pragma omp parallel for
     for (size_t i = start_idx; i < end_idx; ++i) {
         double period = get<0>(s_params[i]);
@@ -95,24 +112,43 @@ BLSResult bls_mpi(
 
 #pragma omp critical
         {
-            if (d_value < local_result.best_d_value) {
-                local_result.best_d_value = d_value;
-                local_result.best_period = period;
-                local_result.best_duration = duration;
-                local_result.best_phase = phase;
+            if (d_value < local_best_d_value) {
+                local_best_d_value = d_value;
+                local_best_period = period;
+                local_best_duration = duration;
+                local_best_phase = phase;
             }
         }
     }
 
-    // Reduce the results from all processes to find the global best result
-    BLSResult global_result;
-    MPI_Allreduce(&local_result.best_d_value, &global_result.best_d_value, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
+    local_result.best_d_value = local_best_d_value;
+    local_result.best_period = local_best_period;
+    local_result.best_duration = local_best_duration;
+    local_result.best_phase = local_best_phase;
 
-    if (local_result.best_d_value == global_result.best_d_value) {
-        global_result.best_period = local_result.best_period;
-        global_result.best_duration = local_result.best_duration;
-        global_result.best_phase = local_result.best_phase;
-    }
+    // Define a custom MPI datatype for the BLSResult struct
+    MPI_Datatype MPI_BLSResult;
+    MPI_Datatype types[4] = {MPI_DOUBLE, MPI_DOUBLE, MPI_DOUBLE, MPI_DOUBLE};
+    int block_lengths[4] = {1, 1, 1, 1};
+    MPI_Aint offsets[4];
+
+    offsets[0] = offsetof(BLSResult, best_d_value);
+    offsets[1] = offsetof(BLSResult, best_period);
+    offsets[2] = offsetof(BLSResult, best_duration);
+    offsets[3] = offsetof(BLSResult, best_phase);
+
+    MPI_Type_create_struct(4, block_lengths, offsets, types, &MPI_BLSResult);
+    MPI_Type_commit(&MPI_BLSResult);
+
+    // Define a custom reduction operation
+    MPI_Op MPI_BLSResult_minloc;
+    MPI_Op_create((MPI_User_function *)minloc_reduction, true, &MPI_BLSResult_minloc);
+
+    BLSResult global_result;
+    MPI_Reduce(&local_result, &global_result, 1, MPI_BLSResult, MPI_BLSResult_minloc, 0, MPI_COMM_WORLD);
+
+    MPI_Type_free(&MPI_BLSResult);
+    MPI_Op_free(&MPI_BLSResult_minloc);
 
     return global_result;
 }
