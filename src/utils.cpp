@@ -424,25 +424,16 @@ double model_omp(
     }
 
     double r = 0.0;
-#pragma omp parallel for reduction(+ : r)
+    double s = 0.0;
+    double wx = 0.0;
+#pragma omp parallel for reduction(+ : r, s, wx)
     for (size_t i = 0; i < flux.size(); ++i) {
         r += weights[i] * is_transit[i];
-    }
-
-    double s = 0.0;
-#pragma omp parallel for reduction(+ : s)
-    for (size_t i = 0; i < flux.size(); ++i) {
         s += weights[i] * flux[i] * is_transit[i];
-    }
-
-    double wx = 0.0;
-#pragma omp parallel for reduction(+ : wx)
-    for (size_t i = 0; i < flux.size(); ++i) {
         wx += weights[i] * flux[i] * flux[i];
     }
 
     double d_value = wx - (s * s) / (r * (1 - r)) + numeric_limits<double>::epsilon();
-
     return d_value;
 }
 
@@ -497,7 +488,7 @@ BLSResult bls_omp(
     BLSResult result;
     result.best_d_value = DBL_MAX;
 
-#pragma omp parallel for
+#pragma omp parallel for reduction(min : result.best_d_value)
     for (size_t i = 0; i < s_params.size(); ++i) {
         double period = get<0>(s_params[i]);
         double duration = get<1>(s_params[i]);
