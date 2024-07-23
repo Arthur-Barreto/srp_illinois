@@ -12,7 +12,18 @@ BLSResult bls_mpi(
 
 void minloc_reduction(void *in, void *inout, int *len, MPI_Datatype *dptr);
 
+double model_mpi(
+    const vector<double> &t_rel,
+    const vector<double> &flux,
+    const vector<double> &weights,
+    double period,
+    double duration,
+    double phase,
+    int rank,
+    int size);
+
 int main(int argc, char *argv[]) {
+
     MPI_Init(&argc, &argv);
 
     int rank, size;
@@ -33,7 +44,7 @@ int main(int argc, char *argv[]) {
     double real_diff = 0.05;
 
     double threshold = cosf64x(M_PI * real_duration / real_period);
-    vector<double> time = linspace(0, 400, 5000);
+    vector<double> time = linspace(0, 400, 50000);
     vector<double> flux(time.size());
 
     for (size_t i = 0; i < time.size(); ++i) {
@@ -47,7 +58,7 @@ int main(int argc, char *argv[]) {
 
     auto start = chrono::high_resolution_clock::now();
 
-    vector<SPECParameters> s_params = spec_generator_gambiarra_omp(time);
+    vector<SPECParameters> s_params = spec_generator_gambiarra(time);
     BLSResult result = bls_mpi(time, flux, flux_err, s_params, rank, size);
 
     MPI_Finalize();
@@ -64,6 +75,44 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
+}
+
+double model_mpi(
+    const vector<double> &t_rel,
+    const vector<double> &flux,
+    const vector<double> &weights,
+    double period,
+    double duration,
+    double phase,
+    int rank,
+    int size) {
+    size_t n = flux.size();
+    size_t local_start = n / size * rank;
+    size_t local_end = (rank == size - 1) ? n : n / size * (rank + 1);
+
+    vector<size_t> is_transit(local_end - local_start, 0);
+    double local_r = 0.0, local_s = 0.0, local_wx = 0.0;
+
+    for (size_t i = local_start; i < local_end; ++i) {
+        double mod_time = fmod(t_rel[i], period);
+        is_transit[i - local_start] = (mod_time >= phase && mod_time <= phase + duration) ? 1 : 0;
+        local_r += weights[i] * is_transit[i - local_start];
+        local_s += weights[i] * flux[i] * is_transit[i - local_start];
+        local_wx += weights[i] * flux[i] * flux[i];
+    }
+
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    double global_r = 0.0, global_s = 0.0, global_wx = 0.0;
+    MPI_Reduce(&local_r, &global_r, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&local_s, &global_s, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&local_wx, &global_wx, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    double d_value = 0;
+    if (rank == 0) {
+        d_value = global_wx - (global_s * global_s) / (global_r * (1 - global_r)) + numeric_limits<double>::epsilon();
+    }
+    return d_value;
 }
 
 void minloc_reduction(void *in, void *inout, int *len, MPI_Datatype *dptr) {
@@ -85,14 +134,13 @@ BLSResult bls_mpi(
     int rank,
     int size) {
 
-    vector<double> t_rel = compute_trel_omp(time);
-    vector<double> normalized_flux = normalize_omp(flux);
-    vector<double> weights = compute_weights_omp(flux_err);
+    vector<double> t_rel = compute_trel(time);
+    vector<double> normalized_flux = normalize(flux);
+    vector<double> weights = compute_weights(flux_err);
 
     BLSResult local_result;
     local_result.best_d_value = DBL_MAX;
 
-    // Distribute the workload among MPI processes
     size_t num_params = s_params.size();
     size_t start_idx = (rank * num_params) / size;
     size_t end_idx = ((rank + 1) * num_params) / size;
@@ -102,22 +150,18 @@ BLSResult bls_mpi(
     double local_best_duration = 0.0;
     double local_best_phase = 0.0;
 
-#pragma omp parallel for
     for (size_t i = start_idx; i < end_idx; ++i) {
         double period = get<0>(s_params[i]);
         double duration = get<1>(s_params[i]);
         double phase = get<2>(s_params[i]);
 
-        double d_value = model_omp(t_rel, normalized_flux, weights, period, duration, phase);
+        double d_value = model_mpi(t_rel, normalized_flux, weights, period, duration, phase, rank, size);
 
-#pragma omp critical
-        {
-            if (d_value < local_best_d_value) {
-                local_best_d_value = d_value;
-                local_best_period = period;
-                local_best_duration = duration;
-                local_best_phase = phase;
-            }
+        if (d_value < local_best_d_value) {
+            local_best_d_value = d_value;
+            local_best_period = period;
+            local_best_duration = duration;
+            local_best_phase = phase;
         }
     }
 
