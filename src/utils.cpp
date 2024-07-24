@@ -235,9 +235,6 @@ vector<SPECParameters> spec_generator_omp(vector<double> &time) {
 }
 
 vector<SPECParameters> spec_generator_gambiarra(vector<double> &time) {
-    PERIODParameters p_params = auto_max_min_period(time);
-    vector<double> periods = auto_period(p_params.minimum_period, p_params.maximum_period, p_params.total_duration);
-
     vector<SPECParameters> spec_params;
 
     for (const auto &p : linspace(45, 55, 101)) {
@@ -252,16 +249,27 @@ vector<SPECParameters> spec_generator_gambiarra(vector<double> &time) {
 }
 
 vector<SPECParameters> spec_generator_gambiarra_omp(vector<double> &time) {
-    PERIODParameters p_params = auto_max_min_period_omp(time);
-    vector<double> periods = auto_period_omp(p_params.minimum_period, p_params.maximum_period, p_params.total_duration);
-
     vector<SPECParameters> spec_params;
 
-    for (const auto &p : linspace_omp(45, 55, 101)) {
-        for (const auto &d : linspace_omp(1, 11, 11)) {
-            for (const auto &phi : arange(0, p, 0.5)) {
-                spec_params.push_back(make_tuple(p, d, phi));
+    vector<double> periods = linspace(45, 55, 101);
+    vector<double> durations = linspace(1, 11, 11);
+
+#pragma omp parallel
+    {
+        vector<SPECParameters> local_spec_params;
+
+#pragma omp for collapse(2) nowait
+        for (size_t i = 0; i < periods.size(); ++i) {
+            for (size_t j = 0; j < durations.size(); ++j) {
+                for (const auto &phi : arange(0, periods[i], 0.5)) {
+                    local_spec_params.push_back(make_tuple(periods[i], durations[j], phi));
+                }
             }
+        }
+
+#pragma omp critical
+        {
+            spec_params.insert(spec_params.end(), local_spec_params.begin(), local_spec_params.end());
         }
     }
 
@@ -455,11 +463,6 @@ BLSResult bls(
         double duration = get<1>(params);
         double phase = get<2>(params);
 
-        // if period is equal to best period, go to the next iteration
-        if (fabs(period - result.best_period) < numeric_limits<double>::epsilon()) {
-            continue;
-        }
-
         double d_value = model(t_rel, normalized_flux, weights, period, duration, phase);
 
         if (d_value < result.best_d_value) {
@@ -467,8 +470,6 @@ BLSResult bls(
             result.best_period = period;
             result.best_duration = duration;
             result.best_phase = phase;
-
-            cout << "period: " << period << " d_value: " << d_value << endl;
         }
     }
 
@@ -486,9 +487,9 @@ BLSResult bls_omp(
     vector<double> weights = compute_weights_omp(flux_err);
 
     BLSResult result;
-    double aux_d_value = DBL_MAX;
+    result.best_d_value = DBL_MAX;
 
-#pragma omp parallel for reduction(min : aux_d_value)
+#pragma omp parallel for
     for (size_t i = 0; i < s_params.size(); ++i) {
         double period = get<0>(s_params[i]);
         double duration = get<1>(s_params[i]);
@@ -498,8 +499,7 @@ BLSResult bls_omp(
 
 #pragma omp critical
         {
-            if (d_value < aux_d_value) {
-                aux_d_value = d_value;
+            if (d_value < result.best_d_value) {
                 result.best_d_value = d_value;
                 result.best_period = period;
                 result.best_duration = duration;
