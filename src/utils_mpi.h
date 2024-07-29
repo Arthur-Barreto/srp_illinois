@@ -74,9 +74,9 @@ double model(
     double phase);
 
 double model_mpi(
-    const vector<double> &t_rel,
-    const vector<double> &flux,
-    const vector<double> &weights,
+    const std::vector<double> &t_rel,
+    const std::vector<double> &flux,
+    const std::vector<double> &weights,
     double period,
     double duration,
     double phase,
@@ -86,10 +86,10 @@ double model_mpi(
 void minloc_reduction(void *in, void *inout, int *len, MPI_Datatype *dptr);
 
 BLSResult bls_mpi(
-    vector<double> &time,
-    vector<double> &flux,
-    vector<double> &flux_err,
-    vector<SPECParameters> &s_params,
+    std::vector<double> &time,
+    std::vector<double> &flux,
+    std::vector<double> &flux_err,
+    std::vector<SPECParameters> &s_params,
     int rank,
     int size);
 

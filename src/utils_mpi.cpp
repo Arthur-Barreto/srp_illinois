@@ -1,5 +1,7 @@
 #include "utils_mpi.h"
 
+using namespace std;
+
 template <typename T>
 T min_value(const vector<T> &v) {
     return *min_element(v.begin(), v.end());
