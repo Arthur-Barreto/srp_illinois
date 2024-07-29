@@ -1,36 +1,44 @@
 # Compiler and flags
-CXX = g++
+GPP = g++
+MPICPP = mpic++
 NVCC = nvcc
 CXXFLAGS = -O3 -fopenmp
-NVCCFLAGS = -arch=sm_75 -O3
-
-# Source files
-SRC_UTILS = src/utils.cpp
-SRC_CPP = src/bls.cpp
-SRC_CU = src/bls.cu
-
-# Output files
-OUT_UTILS = build/utils
-OUT_CPP = build/bls
-OUT_CU = build/gpu_bls
+NVCCFLAGS = -arch=sm_86 -O3
+BUILDDIR = build
+UTILS_SRC = src/utils.cpp
+UTILS_OBJ = $(BUILDDIR)/utils
+BLS_SRC = src/bls.cpp
+BLS_MPI_SRC = src/bls_mpi.cpp
+BLS_CU_SRC = src/bls.cu
+BLS_BIN = $(BUILDDIR)/bls
+BLS_MPI_BIN = $(BUILDDIR)/bls_mpi
+GPU_BLS_BIN = $(BUILDDIR)/gpu_bls
 
 # Default target
-all: $(OUT_UTILS) $(OUT_CPP) $(OUT_CU) 
+all: $(BLS_BIN) $(BLS_MPI_BIN) $(GPU_BLS_BIN)
 
-# COMpile uitls
-$(OUT_UTILS) : $(SRC_UTILS)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Create build directory if it doesn't exist
+$(BUILDDIR):
+	mkdir -p $(BUILDDIR)
 
-# Compile C++ source
-$(OUT_CPP): $(SRC_CPP)
-	$(CXX) $(CXXFLAGS) $(OUT_UTILS) $< -o $@
+# Compile utils
+$(UTILS_OBJ): $(UTILS_SRC) | $(BUILDDIR)
+	$(GPP) $(CXXFLAGS) -c $(UTILS_SRC) -o $(UTILS_OBJ)
 
-# Compile CUDA source
-$(OUT_CU): $(SRC_CU)
-	$(NVCC) $(NVCCFLAGS) $< -o $@
+# Build bls
+$(BLS_BIN): $(UTILS_OBJ) $(BLS_SRC) | $(BUILDDIR)
+	$(GPP) $(CXXFLAGS) $(UTILS_OBJ) $(BLS_SRC) -o $(BLS_BIN)
 
-# Clean target
+# Build bls_mpi
+$(BLS_MPI_BIN): $(UTILS_OBJ) $(BLS_MPI_SRC) | $(BUILDDIR)
+	$(MPICPP) $(CXXFLAGS) $(UTILS_OBJ) $(BLS_MPI_SRC) -o $(BLS_MPI_BIN)
+
+# Build gpu_bls
+$(GPU_BLS_BIN): $(BLS_CU_SRC) | $(BUILDDIR)
+	$(NVCC) $(NVCCFLAGS) $(BLS_CU_SRC) -o $(GPU_BLS_BIN)
+
+# Clean up build directory
 clean:
-	rm -f $(OUT_CPP) $(OUT_CU) $(OUT_UTILS)
+	rm -rf $(BUILDDIR)
 
 .PHONY: all clean
