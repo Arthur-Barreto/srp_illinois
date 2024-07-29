@@ -1,26 +1,5 @@
-#include "utils.h"
-#include <mpi.h>
+#include "utils_mpi.h"
 using namespace std;
-
-BLSResult bls_mpi(
-    vector<double> &time,
-    vector<double> &flux,
-    vector<double> &flux_err,
-    vector<SPECParameters> &s_params,
-    int rank,
-    int size);
-
-void minloc_reduction(void *in, void *inout, int *len, MPI_Datatype *dptr);
-
-double model_mpi(
-    const vector<double> &t_rel,
-    const vector<double> &flux,
-    const vector<double> &weights,
-    double period,
-    double duration,
-    double phase,
-    int rank,
-    int size);
 
 int main(int argc, char *argv[]) {
 
@@ -30,13 +9,16 @@ int main(int argc, char *argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    if (argc != 2) {
+    if (argc != 3) {
         if (rank == 0) {
-            cout << "Usage: " << argv[0] << " <filename>" << endl;
+            cout << "Usage: " << argv[0] << " <n_points> <samples>" << endl;
         }
         MPI_Finalize();
         return 1;
     }
+
+    size_t n_points = stoul(argv[1]);
+    size_t samples = stoul(argv[2]);
 
     double real_period = 50.0;
     double real_phase = 5.0;
@@ -44,7 +26,7 @@ int main(int argc, char *argv[]) {
     double real_diff = 0.05;
 
     double threshold = cosf64x(M_PI * real_duration / real_period);
-    vector<double> time = linspace(0, 400, 50000);
+    vector<double> time = linspace(0, 400, n_points);
     vector<double> flux(time.size());
 
     for (size_t i = 0; i < time.size(); ++i) {
@@ -56,62 +38,118 @@ int main(int argc, char *argv[]) {
     }
     vector<double> flux_err(time.size(), 0.01);
 
-    auto start = chrono::high_resolution_clock::now();
+    cout << fixed << setprecision(10);
 
-    vector<SPECParameters> s_params = spec_generator_gambiarra(time);
-    BLSResult result = bls_mpi(time, flux, flux_err, s_params, rank, size);
+    double total_duration = 0.0;
+    BLSResult result;
+    // auto start = chrono::high_resolution_clock::now();
 
-    MPI_Finalize();
+    for (int i = 0; i < samples; ++i) {
+        auto iteration_start = chrono::high_resolution_clock::now();
+        vector<SPECParameters> s_params = spec_generator_gambiarra(time);
+        result = bls_mpi(time, flux, flux_err, s_params, rank, size);
+        auto iteration_end = chrono::high_resolution_clock::now();
+        total_duration += chrono::duration_cast<chrono::milliseconds>(iteration_end - iteration_start).count();
+    }
 
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    // auto end = chrono::high_resolution_clock::now();
+    auto average_duration = total_duration / samples;
 
     if (rank == 0) {
         cout << "Best period: " << result.best_period << endl;
         cout << "Best duration: " << result.best_duration << endl;
         cout << "Best phase: " << result.best_phase << endl;
         cout << "Best d_value: " << result.best_d_value << endl;
-        cout << "Execution time: " << duration.count() << " ms" << endl;
+        cout << "Average execution time: " << average_duration << " ms" << endl;
     }
 
+    MPI_Finalize();
     return 0;
 }
 
 double model_mpi(
-    const vector<double> &t_rel,
-    const vector<double> &flux,
-    const vector<double> &weights,
+    vector<double> &t_rel,
+    vector<double> &flux,
+    vector<double> &weights,
     double period,
     double duration,
     double phase,
     int rank,
     int size) {
+
     size_t n = flux.size();
-    size_t local_start = n / size * rank;
-    size_t local_end = (rank == size - 1) ? n : n / size * (rank + 1);
+    size_t start = ((rank * n) / size);
+    size_t end = (((rank + 1) * n) / size) - 1;
 
-    vector<size_t> is_transit(local_end - local_start, 0);
-    double local_r = 0.0, local_s = 0.0, local_wx = 0.0;
+    vector<double> local_t_rel(t_rel.begin() + start, t_rel.begin() + end);
+    vector<double> local_flux(flux.begin() + start, flux.begin() + end);
+    vector<double> local_weights(weights.begin() + start, weights.begin() + end);
+    vector<size_t> local_is_transit(local_t_rel.size());
 
-    for (size_t i = local_start; i < local_end; ++i) {
-        double mod_time = fmod(t_rel[i], period);
-        is_transit[i - local_start] = (mod_time >= phase && mod_time <= phase + duration) ? 1 : 0;
-        local_r += weights[i] * is_transit[i - local_start];
-        local_s += weights[i] * flux[i] * is_transit[i - local_start];
-        local_wx += weights[i] * flux[i] * flux[i];
+    // Compute local is_transit
+    for (size_t i = 0; i < local_t_rel.size(); ++i) {
+        local_is_transit[i] = ((fmod(local_t_rel[i], period) >= phase) && fmod(local_t_rel[i], period) <= phase + duration) ? 1 : 0;
     }
 
+    // Compute local r, s, and wx
+    double local_r = inner_product(local_weights.begin(), local_weights.end(), local_is_transit.begin(), 0.0);
+    double local_s = 0.0;
+    for (size_t i = 0; i < local_flux.size(); ++i) {
+        local_s += local_weights[i] * local_flux[i] * local_is_transit[i];
+    }
+    double local_wx = inner_product(local_weights.begin(), local_weights.end(), local_flux.begin(), 0.0, plus<double>(), [](double w, double x) { return w * x * x; });
+
+    // Debugging: Print local_r, local_s, local_wx
+    stringstream ss;
+    ss << "Rank " << rank << " [" << start << "," << end << "]" << endl
+       << "  t_rel[" << start << "] = " << t_rel[start] << endl
+       << "  t_rel[" << end << "] = " << t_rel[end] << endl
+       << "  next: ";
+    if (end < t_rel.size()) {
+        ss << t_rel[end + 1];
+    } else {
+        ss << "None";
+    }
+    ss << endl;
+    ss << "  local_is_transit[" << 0 << "] = " << local_is_transit[0] << endl
+       << "  local_is_transit[" << local_is_transit.size() << "] = " << local_is_transit[local_is_transit.size() - 1] << endl
+       << "  next: ";
+    if (local_is_transit.size() - 1 < local_is_transit.size()) {
+        ss << local_is_transit[local_is_transit.size() - 1];
+    } else {
+        ss << "None";
+    }
+    ss << endl;
+    ss << "    local_r: " << local_r << ", local_s: " << local_s << ", local_wx: " << local_wx << endl;
+    cout << ss.str();
+    // ss << "";
+    // ss << "RANK " << rank << " size = " << end - start + 1 << endl;
+    // ss << "t_rel[" << start << "]= " << t_rel[start] << endl;
+    // ss << "t_rel[" << start + 1 << "]= " << t_rel[start + 1] << endl;
+    // ss << "t_rel[" << end - 1 << "]= " << t_rel[end - 1] << endl;
+    // ss << "t_rel[" << end << "]= " << t_rel[end] << endl;
+    // ss << endl;
+    // cout << ss.str();
+
+    // Synchronize before reduction
     MPI_Barrier(MPI_COMM_WORLD);
 
-    double global_r = 0.0, global_s = 0.0, global_wx = 0.0;
-    MPI_Reduce(&local_r, &global_r, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-    MPI_Reduce(&local_s, &global_s, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-    MPI_Reduce(&local_wx, &global_wx, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    // Reduce the results to the root process
+    double r = 0.0, s = 0.0, wx = 0.0;
 
-    double d_value = 0;
+    MPI_Reduce(&local_r, &r, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&local_s, &s, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&local_wx, &wx, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    double d_value = 0.0;
     if (rank == 0) {
-        d_value = global_wx - (global_s * global_s) / (global_r * (1 - global_r)) + numeric_limits<double>::epsilon();
+        d_value = wx - (s * s) / (r * (1 - r)) + numeric_limits<double>::epsilon();
+        cout << "Global r: " << r << ", s: " << s << ", wx: " << wx << endl;
     }
+
+    // Broadcast the result back to all processes
+    MPI_Bcast(&d_value, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
     return d_value;
 }
 
@@ -155,7 +193,7 @@ BLSResult bls_mpi(
         double duration = get<1>(s_params[i]);
         double phase = get<2>(s_params[i]);
 
-        double d_value = model_mpi(t_rel, normalized_flux, weights, period, duration, phase, rank, size);
+        double d_value = model(t_rel, normalized_flux, weights, period, duration, phase);
 
         if (d_value < local_best_d_value) {
             local_best_d_value = d_value;
