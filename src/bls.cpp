@@ -2,25 +2,24 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        cout << "Usage: " << argv[0] << " <filename>" << endl;
+    if (argc != 3) {
+        cout << "Usage: " << argv[0] << " <n_points> <n_samples>" << endl;
         return 1;
     }
 
     cout << std::fixed << setprecision(16);
 
-    string filename = argv[1];
-    // vector<double> time, flux, flux_err;
+    size_t n_points = stoul(argv[1]);
+    size_t n_samples = stoul(argv[2]);
 
-    // readCSV(filename, time, flux, flux_err);
-    // create fake data
+    // fake data
     double real_period = 50.0;
     double real_phase = 5.0;
     double real_duration = 0.1 * real_period;
     double real_diff = 0.05;
 
     double threshold = cosf64x(M_PI * real_duration / real_period);
-    vector<double> time = linspace(0, 400, 10000);
+    vector<double> time = linspace(0, 400, n_points);
     vector<double> flux(time.size());
 
     for (size_t i = 0; i < time.size(); ++i) {
@@ -34,20 +33,24 @@ int main(int argc, char *argv[]) {
     // end of fake data
 
     auto start = chrono::high_resolution_clock::now();
+    BLSResult result;
+    double total_duration = 0.0;
 
-    vector<SPECParameters> s_params = spec_generator_gambiarra_omp(time);
+    for (int i = 0; i < n_samples; ++i) {
+        auto iteration_start = chrono::high_resolution_clock::now();
+        vector<SPECParameters> s_params = spec_generator_gambiarra(time);
+        result = bls(time, flux, flux_err, s_params);
+        auto iteration_end = chrono::high_resolution_clock::now();
+        total_duration += chrono::duration_cast<chrono::milliseconds>(iteration_end - iteration_start).count();
+    }
 
-    BLSResult result = bls_omp(time, flux, flux_err, s_params);
-
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    auto average_duration = total_duration / n_samples;
 
     cout << "Best period: " << result.best_period << endl;
     cout << "Best duration: " << result.best_duration << endl;
     cout << "Best phase: " << result.best_phase << endl;
     cout << "Best d_value: " << result.best_d_value << endl;
-
-    cout << endl << "Execution time: " << duration.count() << " ms" << endl;
+    cout << "Average execution time: " << average_duration << " ms" << endl;
 
     return 0;
 }

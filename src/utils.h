@@ -45,49 +45,24 @@ std::vector<double> arange(double start, double end, double step);
 
 std::vector<double> linspace(double start, double end, size_t num);
 
-std::vector<double> linspace_omp(double start, double end, size_t num);
-
-std::vector<double> logarithmic_space(double start, double end, size_t num);
-
-std::vector<double> logarithmic_space_omp(double start, double end, size_t num);
-
 std::vector<double> auto_phase(double period, double duration);
 
-std::vector<double> auto_phase_omp(double period, double duration);
-
 PERIODParameters auto_max_min_period(std::vector<double> &time);
-
-PERIODParameters auto_max_min_period_omp(std::vector<double> &time);
 
 std::vector<double> auto_period(
     double minimum_period = -1,
     double maximum_period = -1,
     double total_duration = -1);
 
-std::vector<double> auto_period_omp(
-    double minimum_period = -1,
-    double maximum_period = -1,
-    double total_duration = -1);
-
 std::vector<SPECParameters> spec_generator(std::vector<double> &time);
-
-std::vector<SPECParameters> spec_generator_omp(std::vector<double> &time);
 
 std::vector<SPECParameters> spec_generator_gambiarra(std::vector<double> &time);
 
-std::vector<SPECParameters> spec_generator_gambiarra_omp(std::vector<double> &time);
-
 std::vector<double> compute_trel(std::vector<double> &time);
-
-std::vector<double> compute_trel_omp(std::vector<double> &time);
 
 std::vector<double> normalize(std::vector<double> &flux);
 
-std::vector<double> normalize_omp(std::vector<double> &flux);
-
 std::vector<double> compute_weights(std::vector<double> &flux_err);
-
-std::vector<double> compute_weights_omp(std::vector<double> &flux_err);
 
 double model(
     std::vector<double> &t_rel,
@@ -97,21 +72,7 @@ double model(
     double duration,
     double phase);
 
-double model_omp(
-    std::vector<double> &t_rel,
-    std::vector<double> &flux,
-    std::vector<double> &weights,
-    double period,
-    double duration,
-    double phase);
-
 BLSResult bls(
-    std::vector<double> &time,
-    std::vector<double> &flux,
-    std::vector<double> &flux_err,
-    std::vector<SPECParameters> &s_params);
-
-BLSResult bls_omp(
     std::vector<double> &time,
     std::vector<double> &flux,
     std::vector<double> &flux_err,
