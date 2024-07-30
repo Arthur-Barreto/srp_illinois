@@ -1,7 +1,7 @@
 # Compiler and flags
 GPP = g++
 MPICPP = mpic++
-CXXFLAGS = -O3
+CXXFLAGS = -O3 -Wall -Wextra -g -fsanitize=address
 OPENMP_FLAGS = -fopenmp
 MPI_LIB = -lmpi
 BUILDDIR = build
