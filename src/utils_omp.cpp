@@ -258,7 +258,13 @@ BLSResult bls_omp(
     vector<double> normalized_flux = normalize(flux);
     vector<double> weights = compute_weights(flux_err);
 
-    auto num_threads = omp_get_num_threads();
+    int num_threads;
+#pragma omp parallel
+    {
+        if (omp_get_thread_num() == 0) {
+            num_threads = omp_get_num_threads();
+        }
+    }
     cout << "n_threads: " << num_threads << endl;
     vector<BLSResult> results_per_thread(num_threads);
     for (auto &results : results_per_thread) {
