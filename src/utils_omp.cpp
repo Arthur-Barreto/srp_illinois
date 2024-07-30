@@ -230,7 +230,6 @@ double model_omp(
     double duration,
     double phase) {
     vector<size_t> is_transit(flux.size());
-#pragma omp parallel for
     for (size_t i = 0; i < flux.size(); ++i) {
         is_transit[i] = ((fmod(t_rel[i], period) >= phase) && fmod(t_rel[i], period) <= phase + duration) ? 1 : 0;
     }
@@ -238,7 +237,7 @@ double model_omp(
     double r = 0.0;
     double s = 0.0;
     double wx = 0.0;
-#pragma omp parallel for reduction(+ : r, s, wx)
+
     for (size_t i = 0; i < flux.size(); ++i) {
         r += weights[i] * is_transit[i];
         s += weights[i] * flux[i] * is_transit[i];
@@ -260,6 +259,7 @@ BLSResult bls_omp(
     vector<double> weights = compute_weights(flux_err);
 
     auto num_threads = omp_get_num_threads();
+    cout << "n_threads: " << num_threads << endl;
     vector<BLSResult> results_per_thread(num_threads);
     for (auto &results : results_per_thread) {
         results.best_d_value = DBL_MAX;

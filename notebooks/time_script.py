@@ -11,7 +11,7 @@ BUILD_FOLDER = MAIN_PATH / "build"
 print(STAPL_PATH)
 
 # execs = ["bls", "bls_mpi", "bls_stapl"]
-execs = ["bls"]
+execs = ["bls_omp"]
 # num_nodes = [2**i for i in range(5)]
 num_nodes = [16]
 # n_points = 5000
@@ -33,7 +33,7 @@ for exec in execs:
             if not EXECUTABLE.exists():
                 print(f"Executable not found at {EXECUTABLE}")
             else:
-                if exec == "bls":
+                if exec == "bls_omp":
                     command = f"{EXECUTABLE} {n} {node} {num_samples}"
                 elif exec == "bls_mpi":  # exec == "bls_mpi"
                     command = f"mpiexec -n {node} {EXECUTABLE} {n} {num_samples}"
@@ -51,7 +51,7 @@ for exec in execs:
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                     )
-                    if exec == "bls":
+                    if exec == "bls_omp":
                         with open("log_bls_omp.txt", "a") as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
