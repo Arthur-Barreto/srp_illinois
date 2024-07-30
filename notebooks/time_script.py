@@ -7,13 +7,13 @@ MAIN_PATH = Path.cwd().parent
 STAPL_PATH = MAIN_PATH.parent / "stapl" / "stapl-developer" / "examples" / "bls"
 # /home/abarreto/arthur/stapl/stapl-developer/examples/bls
 BUILD_FOLDER = MAIN_PATH / "build"
+HOST_FILE_FOLDER = MAIN_PATH / "host_file"
 
 print(STAPL_PATH)
 
-# execs = ["bls", "bls_mpi", "bls_stapl"]
-execs = ["bls_omp"]
-# num_nodes = [2**i for i in range(5)]
-num_nodes = [16]
+execs = ["bls_omp", "bls_mpi", "bls_stapl"]
+# execs = ["bls_mpi"]
+num_nodes = [2**i for i in range(6)]
 # n_points = 5000
 n_points = np.arange(5000, 65000 + 1, 5000)
 num_samples = 32
@@ -36,10 +36,10 @@ for exec in execs:
                 if exec == "bls_omp":
                     command = f"{EXECUTABLE} {n} {node} {num_samples}"
                 elif exec == "bls_mpi":  # exec == "bls_mpi"
-                    command = f"mpiexec -n {node} {EXECUTABLE} {n} {num_samples}"
+                    command = f"mpiexec -f {HOST_FILE_FOLDER} -n {node} {EXECUTABLE} {n} {num_samples}"
 
                 else:
-                    command = f"mpiexec -n {node} {EXECUTABLE} {n} {num_samples}"
+                    command = f"mpiexec -f {HOST_FILE_FOLDER} -n {node} {EXECUTABLE} {n} {num_samples}"
 
                 print(f"Running command: {command}")
 
