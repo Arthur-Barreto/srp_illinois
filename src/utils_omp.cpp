@@ -265,7 +265,6 @@ BLSResult bls_omp(
             num_threads = omp_get_num_threads();
         }
     }
-    cout << "n_threads: " << num_threads << endl;
     vector<BLSResult> results_per_thread(num_threads);
     for (auto &results : results_per_thread) {
         results.best_d_value = DBL_MAX;
