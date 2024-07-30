@@ -259,8 +259,11 @@ BLSResult bls_omp(
     vector<double> normalized_flux = normalize(flux);
     vector<double> weights = compute_weights(flux_err);
 
-    BLSResult result;
-    result.best_d_value = DBL_MAX;
+    auto num_threads = omp_get_num_threads();
+    vector<BLSResult> results(num_threads);
+    for (auto &r : results) {
+        r.best_d_value = DBL_MAX;
+    }
 
 #pragma omp parallel for
     for (size_t i = 0; i < s_params.size(); ++i) {
@@ -270,14 +273,22 @@ BLSResult bls_omp(
 
         double d_value = model_omp(t_rel, normalized_flux, weights, period, duration, phase);
 
-#pragma omp critical
-        {
-            if (d_value < result.best_d_value) {
-                result.best_d_value = d_value;
-                result.best_period = period;
-                result.best_duration = duration;
-                result.best_phase = phase;
-            }
+        auto id = omp_get_thread_num();
+        auto &result = results[id];
+
+        if (d_value < result.best_d_value) {
+            result.best_d_value = d_value;
+            result.best_period = period;
+            result.best_duration = duration;
+            result.best_phase = phase;
+        }
+    }
+
+    BLSResult result;
+    result.best_d_value = DBL_MAX;
+    for (const auto &r : results) {
+        if (r.best_d_value < result.best_d_value) {
+            result = r;
         }
     }
 
