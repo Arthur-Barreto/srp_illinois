@@ -1,0 +1,130 @@
+/home/abarreto/arthur/srp_illinois/build/bls 5000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000002841
+Average execution time: 9382.7500000000000000 ms
+Min execution time: 8942.0000000000000000 ms
+Max execution time: 9496.0000000000000000 ms
+Standard deviation: 190.7005178283478131 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 10000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: -0.0000000000001062
+Average execution time: 17917.1875000000000000 ms
+Min execution time: 17847.0000000000000000 ms
+Max execution time: 18921.0000000000000000 ms
+Standard deviation: 203.4186627223519963 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 15000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: -0.0000000000008857
+Average execution time: 26821.6562500000000000 ms
+Min execution time: 26729.0000000000000000 ms
+Max execution time: 27962.0000000000000000 ms
+Standard deviation: 217.8320180458728998 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 20000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: -0.0000000000014746
+Average execution time: 35720.2187500000000000 ms
+Min execution time: 35657.0000000000000000 ms
+Max execution time: 36866.0000000000000000 ms
+Standard deviation: 206.8422911264461277 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 25000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: -0.0000000000018949
+Average execution time: 44679.1250000000000000 ms
+Min execution time: 44561.0000000000000000 ms
+Max execution time: 45674.0000000000000000 ms
+Standard deviation: 260.5986797261260222 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 30000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: -0.0000000000021912
+Average execution time: 53665.0937500000000000 ms
+Min execution time: 53470.0000000000000000 ms
+Max execution time: 54589.0000000000000000 ms
+Standard deviation: 269.3445005210566592 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 35000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: -0.0000000000017795
+Average execution time: 62800.3750000000000000 ms
+Min execution time: 62592.0000000000000000 ms
+Max execution time: 64050.0000000000000000 ms
+Standard deviation: 294.6281289608987777 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 40000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000002578
+Average execution time: 72343.0937500000000000 ms
+Min execution time: 72105.0000000000000000 ms
+Max execution time: 73528.0000000000000000 ms
+Standard deviation: 338.3162683953248688 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 45000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000011933
+Average execution time: 81764.3437500000000000 ms
+Min execution time: 81491.0000000000000000 ms
+Max execution time: 83026.0000000000000000 ms
+Standard deviation: 382.5551928623339109 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 50000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000013101
+Average execution time: 91088.4062500000000000 ms
+Min execution time: 90670.0000000000000000 ms
+Max execution time: 92208.0000000000000000 ms
+Standard deviation: 380.9952312181052889 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 55000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000025593
+Average execution time: 100182.2187500000000000 ms
+Min execution time: 99939.0000000000000000 ms
+Max execution time: 101362.0000000000000000 ms
+Standard deviation: 345.7191539363092829 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 60000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000019098
+Average execution time: 109545.2187500000000000 ms
+Min execution time: 109165.0000000000000000 ms
+Max execution time: 110612.0000000000000000 ms
+Standard deviation: 399.2611719143717437 ms
+
+/home/abarreto/arthur/srp_illinois/build/bls 65000 32 
+Best period: 50.0000000000000000
+Best duration: 5.0000000000000000
+Best phase: 5.0000000000000000
+Best d_value: 0.0000000000058157
+Average execution time: 122818.9062500000000000 ms
+Min execution time: 118352.0000000000000000 ms
+Max execution time: 127509.0000000000000000 ms
+Standard deviation: 3345.9147699038803694 ms
+

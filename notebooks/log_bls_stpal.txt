@@ -1,0 +1,624 @@
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 5000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 4.63466
+Note : conf int 0.0015119 min 4.625 max 4.64809 stddev 0.00436366 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 10000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 9.28322
+Note : conf int 0.0369541 min 9.21953 max 9.66941 stddev 0.106657 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 15000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 13.8591
+Note : conf int 0.00648451 min 13.8341 max 13.9519 stddev 0.0187157 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 20000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 18.4514
+Note : conf int 0.0678035 min 18.3333 max 19.3083 stddev 0.195695 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 25000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 23.0793
+Note : conf int 0.0037283 min 23.0633 max 23.105 stddev 0.0107607 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 30000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 27.7264
+Note : conf int 0.0696141 min 27.5486 max 28.8172 stddev 0.200921 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 35000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 32.4605
+Note : conf int 0.0529928 min 32.3738 max 33.1121 stddev 0.152948 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 40000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 37.3888
+Note : conf int 0.099475 min 37.2297 max 38.5008 stddev 0.287106 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 45000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 42.2969
+Note : conf int 0.0799421 min 42.1154 max 43.3977 stddev 0.23073 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 50000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 47.1211
+Note : conf int 0.0819672 min 46.9499 max 48.2636 stddev 0.236574 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 55000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 51.8586
+Note : conf int 0.0747286 min 51.6566 max 52.7022 stddev 0.215682 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 60000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 56.6755
+Note : conf int 0.0881058 min 56.5002 max 57.7572 stddev 0.254292 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 65000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 61.5266
+Note : conf int 0.104175 min 61.2982 max 62.557 stddev 0.300671 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 5000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 2.45829
+Note : conf int 0.00185834 min 2.44661 max 2.47512 stddev 0.00536355 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 10000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 4.90824
+Note : conf int 0.00123226 min 4.9034 max 4.91685 stddev 0.00355656 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 15000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 7.36237
+Note : conf int 0.00294684 min 7.33439 max 7.37871 stddev 0.0085052 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 20000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 9.79564
+Note : conf int 0.0149189 min 9.75412 max 9.97687 stddev 0.0430591 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 25000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 12.2364
+Note : conf int 0.0216244 min 12.1932 max 12.4544 stddev 0.0624126 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 30000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 14.7021
+Note : conf int 0.0040869 min 14.6743 max 14.7357 stddev 0.0117956 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 35000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 17.2545
+Note : conf int 0.0250188 min 17.2127 max 17.6249 stddev 0.0722094 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 40000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 19.8284
+Note : conf int 0.00683095 min 19.7725 max 19.8664 stddev 0.0197156 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 45000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 22.5018
+Note : conf int 0.0357295 min 22.3423 max 22.7974 stddev 0.103123 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 50000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 25.0116
+Note : conf int 0.0466152 min 24.8636 max 25.5676 stddev 0.134541 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 55000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 27.5496
+Note : conf int 0.0294044 min 27.4297 max 27.8608 stddev 0.0848674 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 60000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 30.0864
+Note : conf int 0.036966 min 29.9588 max 30.5968 stddev 0.106692 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 65000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 32.5907
+Note : conf int 0.0314037 min 32.5148 max 33.0764 stddev 0.0906376 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 5000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 1.23044
+Note : conf int 0.0019678 min 1.22421 max 1.25514 stddev 0.00567948 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 10000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 2.45237
+Note : conf int 0.00115166 min 2.44698 max 2.4677 stddev 0.00332392 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 15000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 3.67114
+Note : conf int 0.00141249 min 3.66613 max 3.68868 stddev 0.00407674 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 20000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 4.89324
+Note : conf int 0.00555374 min 4.86842 max 4.97013 stddev 0.0160293 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 25000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 6.11817
+Note : conf int 0.00323503 min 6.10103 max 6.14745 stddev 0.00933698 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 30000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 7.34349
+Note : conf int 0.00239858 min 7.33197 max 7.36573 stddev 0.00692281 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 35000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 8.61326
+Note : conf int 0.021402 min 8.56939 max 8.85158 stddev 0.0617706 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 40000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 9.90902
+Note : conf int 0.00401428 min 9.88672 max 9.93782 stddev 0.011586 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 45000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 11.1897
+Note : conf int 0.00774305 min 11.1191 max 11.2154 stddev 0.0223481 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 50000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 12.5145
+Note : conf int 0.0323151 min 12.4277 max 12.765 stddev 0.0932681 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 55000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 13.7189
+Note : conf int 0.011099 min 13.6287 max 13.7637 stddev 0.032034 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 60000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 15.0133
+Note : conf int 0.0245203 min 14.9435 max 15.3567 stddev 0.0707707 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 65000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 16.2269
+Note : conf int 0.00913049 min 16.1644 max 16.2736 stddev 0.0263525 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 5000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 0.635731
+Note : conf int 0.0004014 min 0.632074 max 0.638818 stddev 0.00115852 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 10000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 1.26713
+Note : conf int 0.00104326 min 1.26037 max 1.27747 stddev 0.00301106 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 15000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 1.88439
+Note : conf int 0.000693414 min 1.88153 max 1.89043 stddev 0.00200134 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 20000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 2.52603
+Note : conf int 0.00107567 min 2.52052 max 2.5328 stddev 0.0031046 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 25000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 3.17397
+Note : conf int 0.0104712 min 3.15291 max 3.2852 stddev 0.0302221 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 30000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 3.79328
+Note : conf int 0.00276672 min 3.7725 max 3.80422 stddev 0.00798533 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 35000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 4.45714
+Note : conf int 0.0011787 min 4.44686 max 4.46355 stddev 0.00340198 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 40000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 5.13682
+Note : conf int 0.00192674 min 5.12408 max 5.14891 stddev 0.00556097 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 45000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 5.82806
+Note : conf int 0.0184955 min 5.7541 max 6.07278 stddev 0.053382 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 50000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 6.46715
+Note : conf int 0.00643052 min 6.43247 max 6.4921 stddev 0.0185598 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 55000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 7.13112
+Note : conf int 0.0186726 min 7.07864 max 7.38755 stddev 0.053893 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 60000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 7.78196
+Note : conf int 0.00574052 min 7.73719 max 7.80337 stddev 0.0165683 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 65000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 8.4236
+Note : conf int 0.0202694 min 8.37817 max 8.67539 stddev 0.0585016 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 5000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 0.369374
+Note : conf int 0.000630421 min 0.366262 max 0.373869 stddev 0.00181953 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 10000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 0.753477
+Note : conf int 0.00306795 min 0.731799 max 0.760423 stddev 0.00885475 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 15000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 1.13249
+Note : conf int 0.00417098 min 1.09197 max 1.16591 stddev 0.0120383 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 20000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 1.5126
+Note : conf int 0.00362552 min 1.46634 max 1.51911 stddev 0.010464 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 25000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 1.89256
+Note : conf int 0.00367146 min 1.83552 max 1.89885 stddev 0.0105966 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 30000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 2.27819
+Note : conf int 0.0061361 min 2.21084 max 2.34881 stddev 0.0177101 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 35000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 2.73093
+Note : conf int 0.0258372 min 2.6068 max 3.01081 stddev 0.0745715 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 40000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 3.13586
+Note : conf int 0.0131578 min 3.09638 max 3.21116 stddev 0.0379761 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 45000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 3.49865
+Note : conf int 0.00705181 min 3.42778 max 3.54992 stddev 0.020353 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 50000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 3.91233
+Note : conf int 0.00495829 min 3.8698 max 3.93696 stddev 0.0143107 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 55000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 4.2981
+Note : conf int 0.00856317 min 4.2219 max 4.39241 stddev 0.0247151 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 60000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 4.7104
+Note : conf int 0.0181559 min 4.63176 max 4.8823 stddev 0.0524017 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 65000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 5.16813
+Note : conf int 0.0384355 min 5.05111 max 5.58273 stddev 0.110933 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 5000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 8.98101
+Note : conf int 0.0374046 min 8.93678 max 9.33501 stddev 0.107958 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 10000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 17.8508
+Note : conf int 0.00638804 min 17.8313 max 17.938 stddev 0.0184372 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 15000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 26.8253
+Note : conf int 0.0774387 min 26.7239 max 27.845 stddev 0.223504 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 20000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 35.6723
+Note : conf int 0.0672325 min 35.5958 max 36.742 stddev 0.194047 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 25000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 44.619
+Note : conf int 0.0807709 min 44.5111 max 45.675 stddev 0.233122 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 30000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 53.5471
+Note : conf int 0.065812 min 53.4349 max 54.5846 stddev 0.189947 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 35000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 62.7895
+Note : conf int 0.129394 min 62.5294 max 63.8406 stddev 0.373458 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 40000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 72.1635
+Note : conf int 0.0981815 min 71.9738 max 73.2497 stddev 0.283372 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 45000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 81.7316
+Note : conf int 0.0766967 min 81.4875 max 82.2433 stddev 0.221363 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 50000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 90.9737
+Note : conf int 0.111488 min 90.7298 max 91.9477 stddev 0.321777 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 55000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 100.362
+Note : conf int 0.150793 min 100.1 max 102.063 stddev 0.43522 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 60000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 109.428
+Note : conf int 0.157082 min 108.987 max 110.526 stddev 0.453373 samples 32
+
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/stapl/stapl-developer/examples/bls/bls_stapl 65000 32 
+Test : BLS STAPL
+Version : STAPL
+Status : Pass
+Time : 118.797
+Note : conf int 0.152976 min 118.439 max 120.095 stddev 0.441522 samples 32
+
+
