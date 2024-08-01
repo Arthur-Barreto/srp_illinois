@@ -1,0 +1,780 @@
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 5000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 8934.8125000000 ms
+Min execution time: 8923.0000000000 ms
+Max execution time: 8962.0000000000 ms
+Standard deviation: 7.8159992164 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 10000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 17912.7500000000 ms
+Min execution time: 17818.0000000000 ms
+Max execution time: 18815.0000000000 ms
+Standard deviation: 242.6415823803 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 15000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 26762.5312500000 ms
+Min execution time: 26686.0000000000 ms
+Max execution time: 27717.0000000000 ms
+Standard deviation: 181.0189880190 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 20000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 35656.8437500000 ms
+Min execution time: 35570.0000000000 ms
+Max execution time: 36666.0000000000 ms
+Standard deviation: 211.0807175844 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 25000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 44565.4687500000 ms
+Min execution time: 44461.0000000000 ms
+Max execution time: 45602.0000000000 ms
+Standard deviation: 225.5692776586 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 30000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 53486.2187500000 ms
+Min execution time: 53366.0000000000 ms
+Max execution time: 54518.0000000000 ms
+Standard deviation: 262.0184552631 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 35000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 62536.6250000000 ms
+Min execution time: 62408.0000000000 ms
+Max execution time: 63642.0000000000 ms
+Standard deviation: 248.8313623220 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 40000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 72040.7187500000 ms
+Min execution time: 71812.0000000000 ms
+Max execution time: 73063.0000000000 ms
+Standard deviation: 334.2876039407 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 45000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 81606.2500000000 ms
+Min execution time: 80977.0000000000 ms
+Max execution time: 82713.0000000000 ms
+Standard deviation: 343.4737071451 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 50000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 90918.0625000000 ms
+Min execution time: 90559.0000000000 ms
+Max execution time: 92138.0000000000 ms
+Standard deviation: 403.8370600796 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 55000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 100125.3750000000 ms
+Min execution time: 99867.0000000000 ms
+Max execution time: 101162.0000000000 ms
+Standard deviation: 340.5742163978 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 60000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 109678.3750000000 ms
+Min execution time: 109110.0000000000 ms
+Max execution time: 116355.0000000000 ms
+Standard deviation: 1332.6327970882 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 1 /home/abarreto/arthur/srp_illinois/build/bls_mpi 65000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 119647.2812500000 ms
+Min execution time: 118195.0000000000 ms
+Max execution time: 127324.0000000000 ms
+Standard deviation: 1680.3496145590 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 5000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 4538.8125000000 ms
+Min execution time: 4485.0000000000 ms
+Max execution time: 4747.0000000000 ms
+Standard deviation: 83.2430318030 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 10000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 8971.4375000000 ms
+Min execution time: 8944.0000000000 ms
+Max execution time: 9110.0000000000 ms
+Standard deviation: 39.7121970401 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 15000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 13458.2500000000 ms
+Min execution time: 13406.0000000000 ms
+Max execution time: 13929.0000000000 ms
+Standard deviation: 103.7656614685 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 20000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 17962.0000000000 ms
+Min execution time: 17866.0000000000 ms
+Max execution time: 18488.0000000000 ms
+Standard deviation: 181.1846433890 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 25000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 22445.2500000000 ms
+Min execution time: 22352.0000000000 ms
+Max execution time: 23418.0000000000 ms
+Standard deviation: 226.4707486630 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 30000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 26898.9062500000 ms
+Min execution time: 26800.0000000000 ms
+Max execution time: 27582.0000000000 ms
+Standard deviation: 176.3666917559 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 35000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 31529.8437500000 ms
+Min execution time: 31443.0000000000 ms
+Max execution time: 32428.0000000000 ms
+Standard deviation: 202.4074031154 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 40000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 36268.7187500000 ms
+Min execution time: 36138.0000000000 ms
+Max execution time: 37329.0000000000 ms
+Standard deviation: 268.9095147971 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 45000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 41013.9375000000 ms
+Min execution time: 40814.0000000000 ms
+Max execution time: 41750.0000000000 ms
+Standard deviation: 261.5940243846 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 50000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 45631.3437500000 ms
+Min execution time: 45541.0000000000 ms
+Max execution time: 46703.0000000000 ms
+Standard deviation: 209.6736466176 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 55000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 50387.6250000000 ms
+Min execution time: 50196.0000000000 ms
+Max execution time: 51466.0000000000 ms
+Standard deviation: 274.6808090766 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 60000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 54953.5000000000 ms
+Min execution time: 54683.0000000000 ms
+Max execution time: 55975.0000000000 ms
+Standard deviation: 314.9133809478 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 2 /home/abarreto/arthur/srp_illinois/build/bls_mpi 65000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 59577.2500000000 ms
+Min execution time: 59418.0000000000 ms
+Max execution time: 60564.0000000000 ms
+Standard deviation: 282.8988335077 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 5000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 2340.3437500000 ms
+Min execution time: 2338.0000000000 ms
+Max execution time: 2350.0000000000 ms
+Standard deviation: 2.0858058245 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 10000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 4667.7187500000 ms
+Min execution time: 4663.0000000000 ms
+Max execution time: 4678.0000000000 ms
+Standard deviation: 3.0744346533 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 15000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 7000.5000000000 ms
+Min execution time: 6991.0000000000 ms
+Max execution time: 7093.0000000000 ms
+Standard deviation: 17.0403931880 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 20000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 9342.4062500000 ms
+Min execution time: 9316.0000000000 ms
+Max execution time: 9517.0000000000 ms
+Standard deviation: 43.8704480367 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 25000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 11656.8437500000 ms
+Min execution time: 11625.0000000000 ms
+Max execution time: 11894.0000000000 ms
+Standard deviation: 59.8879732161 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 30000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 13978.7187500000 ms
+Min execution time: 13970.0000000000 ms
+Max execution time: 14016.0000000000 ms
+Standard deviation: 8.5155533254 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 35000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 16401.3125000000 ms
+Min execution time: 16366.0000000000 ms
+Max execution time: 16779.0000000000 ms
+Standard deviation: 71.7619491357 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 40000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 18876.2812500000 ms
+Min execution time: 18846.0000000000 ms
+Max execution time: 18926.0000000000 ms
+Standard deviation: 12.2658937072 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 45000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 21323.8437500000 ms
+Min execution time: 21225.0000000000 ms
+Max execution time: 21720.0000000000 ms
+Standard deviation: 92.4638812507 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 50000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 23770.5000000000 ms
+Min execution time: 23503.0000000000 ms
+Max execution time: 24128.0000000000 ms
+Standard deviation: 86.3517515746 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 55000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 26146.4375000000 ms
+Min execution time: 25977.0000000000 ms
+Max execution time: 26684.0000000000 ms
+Standard deviation: 107.4988190342 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 60000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 28435.6875000000 ms
+Min execution time: 28272.0000000000 ms
+Max execution time: 28768.0000000000 ms
+Standard deviation: 104.9164660277 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 4 /home/abarreto/arthur/srp_illinois/build/bls_mpi 65000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 30941.5000000000 ms
+Min execution time: 30855.0000000000 ms
+Max execution time: 31374.0000000000 ms
+Standard deviation: 108.0584332665 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 5000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 1183.3437500000 ms
+Min execution time: 1180.0000000000 ms
+Max execution time: 1200.0000000000 ms
+Standard deviation: 3.1781419002 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 10000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 2357.8125000000 ms
+Min execution time: 2355.0000000000 ms
+Max execution time: 2376.0000000000 ms
+Standard deviation: 3.5216961467 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 15000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 3534.0625000000 ms
+Min execution time: 3529.0000000000 ms
+Max execution time: 3550.0000000000 ms
+Standard deviation: 3.6309218871 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 20000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 4707.4375000000 ms
+Min execution time: 4700.0000000000 ms
+Max execution time: 4728.0000000000 ms
+Standard deviation: 4.6899993337 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 25000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 5881.0625000000 ms
+Min execution time: 5872.0000000000 ms
+Max execution time: 5908.0000000000 ms
+Standard deviation: 6.3044503131 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 30000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 7068.9375000000 ms
+Min execution time: 7056.0000000000 ms
+Max execution time: 7261.0000000000 ms
+Standard deviation: 35.3605867280 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 35000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 8293.8437500000 ms
+Min execution time: 8278.0000000000 ms
+Max execution time: 8430.0000000000 ms
+Standard deviation: 32.0381699842 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 40000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 9543.9687500000 ms
+Min execution time: 9511.0000000000 ms
+Max execution time: 9640.0000000000 ms
+Standard deviation: 21.7751067377 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 45000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 10776.1250000000 ms
+Min execution time: 10749.0000000000 ms
+Max execution time: 10816.0000000000 ms
+Standard deviation: 21.4676355242 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 50000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 12050.9062500000 ms
+Min execution time: 11966.0000000000 ms
+Max execution time: 12293.0000000000 ms
+Standard deviation: 82.2725498629 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 55000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 13255.3125000000 ms
+Min execution time: 13221.0000000000 ms
+Max execution time: 13414.0000000000 ms
+Standard deviation: 41.8325811270 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 60000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 14437.6875000000 ms
+Min execution time: 14348.0000000000 ms
+Max execution time: 14736.0000000000 ms
+Standard deviation: 93.3362327489 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 8 /home/abarreto/arthur/srp_illinois/build/bls_mpi 65000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 15732.8437500000 ms
+Min execution time: 15596.0000000000 ms
+Max execution time: 15836.0000000000 ms
+Standard deviation: 97.7033486424 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 5000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 604.0000000000 ms
+Min execution time: 600.0000000000 ms
+Max execution time: 610.0000000000 ms
+Standard deviation: 2.8939592257 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 10000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 1203.1250000000 ms
+Min execution time: 1196.0000000000 ms
+Max execution time: 1215.0000000000 ms
+Standard deviation: 5.4928931357 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 15000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 1801.7187500000 ms
+Min execution time: 1792.0000000000 ms
+Max execution time: 1836.0000000000 ms
+Standard deviation: 8.2433093135 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 20000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 2437.1562500000 ms
+Min execution time: 2389.0000000000 ms
+Max execution time: 2621.0000000000 ms
+Standard deviation: 64.6529723674 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 25000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 3010.0937500000 ms
+Min execution time: 2986.0000000000 ms
+Max execution time: 3165.0000000000 ms
+Standard deviation: 45.2364339989 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 30000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 3595.1562500000 ms
+Min execution time: 3586.0000000000 ms
+Max execution time: 3608.0000000000 ms
+Standard deviation: 5.2148188787 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 35000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 4242.0625000000 ms
+Min execution time: 4220.0000000000 ms
+Max execution time: 4290.0000000000 ms
+Standard deviation: 16.7237434132 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 40000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 4882.0312500000 ms
+Min execution time: 4854.0000000000 ms
+Max execution time: 4928.0000000000 ms
+Standard deviation: 18.4449931807 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 45000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 5543.6250000000 ms
+Min execution time: 5514.0000000000 ms
+Max execution time: 5577.0000000000 ms
+Standard deviation: 14.7219012020 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 50000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 6165.4062500000 ms
+Min execution time: 6121.0000000000 ms
+Max execution time: 6215.0000000000 ms
+Standard deviation: 25.0310549306 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 55000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 6757.7187500000 ms
+Min execution time: 6727.0000000000 ms
+Max execution time: 6960.0000000000 ms
+Standard deviation: 38.0133482929 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 60000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 7378.1875000000 ms
+Min execution time: 7339.0000000000 ms
+Max execution time: 7748.0000000000 ms
+Standard deviation: 66.8049574788 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 16 /home/abarreto/arthur/srp_illinois/build/bls_mpi 65000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 7948.5937500000 ms
+Min execution time: 7906.0000000000 ms
+Max execution time: 7976.0000000000 ms
+Standard deviation: 18.0586879628 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 5000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 311.0000000000 ms
+Min execution time: 306.0000000000 ms
+Max execution time: 322.0000000000 ms
+Standard deviation: 3.3354160160 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 10000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 632.2187500000 ms
+Min execution time: 614.0000000000 ms
+Max execution time: 643.0000000000 ms
+Standard deviation: 10.1079621308 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 15000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 955.4687500000 ms
+Min execution time: 923.0000000000 ms
+Max execution time: 963.0000000000 ms
+Standard deviation: 7.5992778234 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 20000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 1268.0312500000 ms
+Min execution time: 1232.0000000000 ms
+Max execution time: 1279.0000000000 ms
+Standard deviation: 8.9494566001 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 25000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 1592.3750000000 ms
+Min execution time: 1544.0000000000 ms
+Max execution time: 1615.0000000000 ms
+Standard deviation: 13.3644818455 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 30000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 1934.1875000000 ms
+Min execution time: 1901.0000000000 ms
+Max execution time: 1945.0000000000 ms
+Standard deviation: 7.7839478255 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 35000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: -0.0000000000
+Average execution time: 2273.9062500000 ms
+Min execution time: 2216.0000000000 ms
+Max execution time: 2287.0000000000 ms
+Standard deviation: 10.8378946727 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 40000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 2621.0000000000 ms
+Min execution time: 2538.0000000000 ms
+Max execution time: 2751.0000000000 ms
+Standard deviation: 27.6665411644 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 45000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 2983.6875000000 ms
+Min execution time: 2951.0000000000 ms
+Max execution time: 3118.0000000000 ms
+Standard deviation: 38.5611831218 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 50000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 3300.6875000000 ms
+Min execution time: 3175.0000000000 ms
+Max execution time: 3448.0000000000 ms
+Standard deviation: 65.9864747032 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 55000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 3617.9375000000 ms
+Min execution time: 3535.0000000000 ms
+Max execution time: 3645.0000000000 ms
+Standard deviation: 21.6736266866 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 60000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 3943.4687500000 ms
+Min execution time: 3872.0000000000 ms
+Max execution time: 3969.0000000000 ms
+Standard deviation: 18.8762158135 ms
+
+mpiexec -f /home/abarreto/arthur/srp_illinois/host_file -n 32 /home/abarreto/arthur/srp_illinois/build/bls_mpi 65000 32 
+Best period: 50.0000000000
+Best duration: 5.0000000000
+Best phase: 5.0000000000
+Best d_value: 0.0000000000
+Average execution time: 4305.7500000000 ms
+Min execution time: 4239.0000000000 ms
+Max execution time: 4317.0000000000 ms
+Standard deviation: 12.6614572621 ms
+
