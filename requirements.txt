@@ -6,7 +6,7 @@ autograd==1.6.2
 backports.tarfile==1.2.0
 beautifulsoup4==4.12.3
 bokeh==3.4.1
-certifi==2024.6.2
+certifi==2024.7.4
 cffi==1.16.0
 charset-normalizer==3.3.2
 comm==0.2.2
