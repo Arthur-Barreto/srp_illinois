@@ -1,3 +1,5 @@
+""" Script to get execution time from each version """
+
 from pathlib import Path
 import subprocess
 import numpy as np
@@ -17,14 +19,14 @@ execs = ["bls_omp", "bls_mpi", "bls_stapl"]
 num_nodes = [2**i for i in range(6)]
 # n_points = 5000
 n_points = np.arange(5000, 65000 + 1, 5000)
-num_samples = 32
+NUM_SAMPLES = 32
 
-for exec in execs:
+for binary in execs:
 
-    EXECUTABLE = BUILD_FOLDER / exec
+    EXECUTABLE = BUILD_FOLDER / binary
 
-    if exec == "bls_stapl":
-        EXECUTABLE = STAPL_PATH / exec
+    if binary == "bls_stapl":
+        EXECUTABLE = STAPL_PATH / binary
 
     for node in num_nodes:
 
@@ -34,13 +36,13 @@ for exec in execs:
             if not EXECUTABLE.exists():
                 print(f"Executable not found at {EXECUTABLE}")
             else:
-                if exec == "bls_omp":
-                    command = f"{EXECUTABLE} {n} {node} {num_samples}"
-                elif exec == "bls_mpi":  # exec == "bls_mpi"
-                    command = f"mpiexec -f {HOST_FILE_FOLDER} -n {node} {EXECUTABLE} {n} {num_samples}"
+                if binary == "bls_omp":
+                    command = f"{EXECUTABLE} {n} {node} {NUM_SAMPLES}"
+                elif binary == "bls_mpi":  # binary == "bls_mpi"
+                    command = f"mpiexec -f {HOST_FILE_FOLDER} -n {node} {EXECUTABLE} {n} {NUM_SAMPLES}"
 
                 else:
-                    command = f"mpiexec -f {HOST_FILE_FOLDER} -n {node} {EXECUTABLE} {n} {num_samples}"
+                    command = f"mpiexec -f {HOST_FILE_FOLDER} -n {node} {EXECUTABLE} {n} {NUM_SAMPLES}"
 
                 print(f"Running command: {command}")
 
@@ -52,20 +54,26 @@ for exec in execs:
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                     )
-                    if exec == "bls_omp":
-                        with open(f"{LOG_FOLDER} / log_bls_omp.txt", "a") as f:
+                    if binary == "bls_omp":
+                        with open(
+                            f"{LOG_FOLDER} / log_bls_omp.txt", "a", encoding="utf-8"
+                        ) as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
                             f.write(result.stderr.decode())
                             f.write("\n")
-                    elif exec == "bls_mpi":
-                        with open(f"{LOG_FOLDER} / log_bls_mpi.txt", "a") as f:
+                    elif binary == "bls_mpi":
+                        with open(
+                            f"{LOG_FOLDER} / log_bls_mpi.txt", "a", encoding="utf-8"
+                        ) as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
                             f.write(result.stderr.decode())
                             f.write("\n")
                     else:
-                        with open(f"{LOG_FOLDER} / log_bls_stpal.txt", "a") as f:
+                        with open(
+                            f"{LOG_FOLDER} / log_bls_stpal.txt", "a", encoding="utf-8"
+                        ) as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
                             f.write(result.stderr.decode())
