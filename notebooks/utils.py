@@ -4,11 +4,28 @@ import numpy.typing as npt
 
 
 def autophase(period, duration):
+    """
+
+    Args:
+        period (float): The maximum period to be used on BLS
+        duration (float): the duration of the candidate transit signal
+
+    Returns:
+        list<float>: the list of phases to be used on BLS   
+    """
     phases = np.linspace(0, period, int(np.ceil(period / duration)) + 1)
     return phases
 
 
 def auto_max_min_period(t: npt.NDArray):
+    """
+
+    Args:
+        t (npt.NDArray): The time array
+
+    Returns:
+        float: Returns the minimum period, maximum period and total duration
+    """
     # Compute the baseline.
     total_duration = np.ptp(t)
 
@@ -24,6 +41,16 @@ def autoperiod(
     maximum_period: float,
     total_duration: float,
 ):
+    """
+
+    Args:
+        minimum_period (float): The minimum period to be used on BLS
+        maximum_period (float): The maximum period to be used on BLS
+        total_duration (float): The total duration of the time array
+
+    Returns:
+        list<float>: The list of periods to be used on BLS
+    """
     # Check that the minimum and maximum periods are positive.
     assert minimum_period > 0, "minimum_period must be positive"
     assert maximum_period > 0, "maximum_period must be positive"
