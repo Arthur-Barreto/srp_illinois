@@ -8,6 +8,7 @@ STAPL_PATH = MAIN_PATH.parent / "stapl" / "stapl-developer" / "examples" / "bls"
 # /home/abarreto/arthur/stapl/stapl-developer/examples/bls
 BUILD_FOLDER = MAIN_PATH / "build"
 HOST_FILE_FOLDER = MAIN_PATH / "host_file"
+LOG_FOLDER = MAIN_PATH / "logs"
 
 print(STAPL_PATH)
 
@@ -52,19 +53,19 @@ for exec in execs:
                         stderr=subprocess.PIPE,
                     )
                     if exec == "bls_omp":
-                        with open("log_bls_omp.txt", "a") as f:
+                        with open(f"{LOG_FOLDER} / log_bls_omp.txt", "a") as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
                             f.write(result.stderr.decode())
                             f.write("\n")
                     elif exec == "bls_mpi":
-                        with open("log_bls_mpi.txt", "a") as f:
+                        with open(f"{LOG_FOLDER} / log_bls_mpi.txt", "a") as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
                             f.write(result.stderr.decode())
                             f.write("\n")
                     else:
-                        with open("log_bls_stpal.txt", "a") as f:
+                        with open(f"{LOG_FOLDER} / log_bls_stpal.txt", "a") as f:
                             f.write(f"{command} \n")
                             f.write(result.stdout.decode())
                             f.write(result.stderr.decode())
