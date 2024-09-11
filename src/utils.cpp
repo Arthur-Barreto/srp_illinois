@@ -1,20 +1,42 @@
-#include "utils.h"
-using namespace std;
+// Copyright 2024 <Your Company Name>
 
-template <typename T> T min_value(const vector<T> &v) {
+#include "src/utils.h"
+#include <cmath>
+#include <numeric>
+#include <cassert>
+#include <limits>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+using std::vector;
+using std::string;
+using std::ifstream;
+using std::cerr;
+using std::endl;
+using std::stringstream;
+using std::accumulate;
+using std::plus;
+
+// Template functions for min, max, and ptp
+template <typename T>
+T min_value(const vector<T> &v) {
   return *min_element(v.begin(), v.end());
 }
 
-template <typename T> T max_value(const vector<T> &v) {
+template <typename T>
+T max_value(const vector<T> &v) {
   return *max_element(v.begin(), v.end());
 }
 
-template <typename T> T ptp(const vector<T> &v) {
+template <typename T>
+T ptp(const vector<T> &v) {
   T min_val = min_value(v);
   T max_val = max_value(v);
   return max_val - min_val;
 }
 
+// Implementation of arange, linspace, and auto_phase
 vector<double> arange(double start, double end, double step) {
   vector<double> result;
   for (double value = start; value < end; value += step) {
@@ -33,24 +55,21 @@ vector<double> linspace(double start, double end, size_t num) {
 }
 
 vector<double> auto_phase(double period, double duration) {
-  vector<double> phase(int(ceil(period / duration)) + 1);
-  phase = linspace(0, period, int(ceil(period / duration)) + 1);
+  vector<double> phase(static_cast<int>(ceil(period / duration)) + 1);
+  phase = linspace(0, period, static_cast<int>(ceil(period / duration)) + 1);
   return phase;
 }
 
-PERIODParameters auto_max_min_period(vector<double> &time) {
+// Implementation of auto_max_min_period
+PERIODParameters auto_max_min_period(const vector<double> &time) {
   double total_duration = ptp(time);
 
-  // compute the difference between each pair of time values
   vector<double> dt(time.size() - 1);
   for (size_t i = 0; i < time.size() - 1; ++i) {
     dt[i] = time[i + 1] - time[i];
   }
 
-  // compute the minimum period
   double min_period = 2.0 * min_value(dt);
-
-  // compute the maximum period
   double max_period = 0.5 * total_duration;
 
   PERIODParameters params;
@@ -61,28 +80,21 @@ PERIODParameters auto_max_min_period(vector<double> &time) {
   return params;
 }
 
+// Implementation of auto_period
 vector<double> auto_period(double minimum_period, double maximum_period,
                            double total_duration) {
-
-  // Check that the minimum and maxmimum period is positive.
   assert(minimum_period > 0 && "minimum_period must be positive");
   assert(maximum_period > 0 && "maximum_period must be positive");
-
-  // check the minimum period is less than the maximum period.
   assert(minimum_period < maximum_period &&
          "minimum_period must be less than maximum_period");
-
-  // check the maximum period does not exceed the total duration.
   assert(maximum_period <= total_duration &&
          "maximum_period must be less than or equal to total_duration");
 
-  // Convert bounds to frequency
   double minimum_frequency = 1.0 / maximum_period;
   double maximum_frequency = 1.0 / minimum_period;
   double frequency_resolution = 1.0 / total_duration;
   frequency_resolution *= frequency_resolution;
 
-  // Compute the number of frequencies and the frequency grid
   size_t nf = static_cast<int>(
       round((maximum_frequency - minimum_frequency) / frequency_resolution));
   vector<double> periods(nf);
@@ -94,15 +106,14 @@ vector<double> auto_period(double minimum_period, double maximum_period,
   return periods;
 }
 
-vector<SPECParameters> spec_generator(vector<double> &time) {
-
+// SPECParameters generators
+vector<SPECParameters> spec_generator(const vector<double> &time) {
   PERIODParameters p_params = auto_max_min_period(time);
   vector<double> periods =
       auto_period(p_params.minimum_period, p_params.maximum_period,
                   p_params.total_duration);
 
   vector<SPECParameters> spec_params;
-
   double step = ptp(time) / time.size();
 
   for (const auto &p : periods) {
@@ -110,7 +121,7 @@ vector<SPECParameters> spec_generator(vector<double> &time) {
     for (const auto &d : durations) {
       vector<double> phases = auto_phase(p, d);
       for (const auto &phi : phases) {
-        spec_params.push_back(make_tuple(p, d, phi));
+        spec_params.push_back(std::make_tuple(p, d, phi));
       }
     }
   }
@@ -118,13 +129,13 @@ vector<SPECParameters> spec_generator(vector<double> &time) {
   return spec_params;
 }
 
-vector<SPECParameters> spec_generator_gambiarra(vector<double> &time) {
+vector<SPECParameters> spec_generator_gambiarra(const vector<double> &time) {
   vector<SPECParameters> spec_params;
 
   for (const auto &p : linspace(45, 55, 101)) {
     for (const auto &d : linspace(1, 11, 11)) {
       for (const auto &phi : arange(0, p, 0.5)) {
-        spec_params.push_back(make_tuple(p, d, phi));
+        spec_params.push_back(std::make_tuple(p, d, phi));
       }
     }
   }
@@ -132,7 +143,8 @@ vector<SPECParameters> spec_generator_gambiarra(vector<double> &time) {
   return spec_params;
 }
 
-vector<double> compute_trel(vector<double> &time) {
+// Compute relative time
+vector<double> compute_trel(const vector<double> &time) {
   double t0 = min_value(time);
   vector<double> t_rel(time.size(), 0.0);
 
@@ -143,7 +155,8 @@ vector<double> compute_trel(vector<double> &time) {
   return t_rel;
 }
 
-vector<double> normalize(vector<double> &flux) {
+// Normalize flux data
+vector<double> normalize(const vector<double> &flux) {
   vector<double> normalized_flux(flux.size());
   double mean_flux = accumulate(flux.begin(), flux.end(), 0.0) / flux.size();
 
@@ -152,19 +165,20 @@ vector<double> normalize(vector<double> &flux) {
   }
 
   double squared_sum =
-      inner_product(normalized_flux.begin(), normalized_flux.end(),
-                    normalized_flux.begin(), 0.0);
+      std::inner_product(normalized_flux.begin(), normalized_flux.end(),
+                         normalized_flux.begin(), 0.0);
 
   double sigma = sqrt(squared_sum / flux.size());
 
   for (auto &f : normalized_flux) {
-    f /= (sigma + numeric_limits<double>::epsilon());
+    f /= (sigma + std::numeric_limits<double>::epsilon());
   }
 
   return normalized_flux;
 }
 
-vector<double> compute_weights(vector<double> &flux_err) {
+// Compute weights based on flux errors
+vector<double> compute_weights(const vector<double> &flux_err) {
   vector<double> weights(flux_err.size());
   for (size_t i = 0; i < flux_err.size(); ++i) {
     weights[i] = 1.0 / (flux_err[i] * flux_err[i]);
@@ -172,7 +186,7 @@ vector<double> compute_weights(vector<double> &flux_err) {
 
   double sum_weights = accumulate(weights.begin(), weights.end(), 0.0);
 
-  assert(fabs(sum_weights) > numeric_limits<double>::epsilon() &&
+  assert(fabs(sum_weights) > std::numeric_limits<double>::epsilon() &&
          "Sum of weights must be greater than epsilon");
 
   for (auto &w : weights) {
@@ -182,8 +196,9 @@ vector<double> compute_weights(vector<double> &flux_err) {
   return weights;
 }
 
-double model(vector<double> &t_rel, vector<double> &flux,
-             vector<double> &weights, double period, double duration,
+// Model function for BLS
+double model(const vector<double> &t_rel, const vector<double> &flux,
+             const vector<double> &weights, double period, double duration,
              double phase) {
   vector<size_t> is_transit(flux.size());
   for (size_t i = 0; i < flux.size(); ++i) {
@@ -193,27 +208,28 @@ double model(vector<double> &t_rel, vector<double> &flux,
                         : 0;
   }
 
-  double r =
-      inner_product(weights.begin(), weights.end(), is_transit.begin(), 0.0);
+  double r = std::inner_product(weights.begin(), weights.end(),
+                                is_transit.begin(), 0.0);
 
   double s = 0.0;
   for (size_t i = 0; i < flux.size(); ++i) {
     s += weights[i] * flux[i] * is_transit[i];
   }
 
-  double wx =
-      inner_product(weights.begin(), weights.end(), flux.begin(), 0.0, plus<>(),
-                    [](double w, double f) { return w * f * f; });
+  double wx = std::inner_product(
+      weights.begin(), weights.end(), flux.begin(), 0.0, plus<>(),
+      [](double w, double f) { return w * f * f; });
 
   double d_value =
-      wx - (s * s) / (r * (1 - r)) + numeric_limits<double>::epsilon();
+      wx - (s * s) / (r * (1 - r)) + std::numeric_limits<double>::epsilon();
 
   return d_value;
 }
 
-BLSResult bls(vector<double> &time, vector<double> &flux,
-              vector<double> &flux_err, vector<SPECParameters> &s_params) {
-
+// BLS (Box-Least Squares) algorithm
+BLSResult bls(const vector<double> &time, const vector<double> &flux,
+              const vector<double> &flux_err,
+              const vector<SPECParameters> &s_params) {
   vector<double> t_rel = compute_trel(time);
   vector<double> normalized_flux = normalize(flux);
   vector<double> weights = compute_weights(flux_err);
@@ -222,9 +238,9 @@ BLSResult bls(vector<double> &time, vector<double> &flux,
   result.best_d_value = DBL_MAX;
 
   for (const auto &params : s_params) {
-    double period = get<0>(params);
-    double duration = get<1>(params);
-    double phase = get<2>(params);
+    double period = std::get<0>(params);
+    double duration = std::get<1>(params);
+    double phase = std::get<2>(params);
 
     double d_value =
         model(t_rel, normalized_flux, weights, period, duration, phase);
@@ -240,6 +256,7 @@ BLSResult bls(vector<double> &time, vector<double> &flux,
   return result;
 }
 
+// Read data from CSV file
 void readCSV(const string &filename, vector<double> &time, vector<double> &flux,
              vector<double> &flux_err) {
   ifstream file(filename);
@@ -249,7 +266,7 @@ void readCSV(const string &filename, vector<double> &time, vector<double> &flux,
   }
 
   string line;
-  getline(file, line); // Read the header line
+  getline(file, line);  // Read the header line
 
   while (getline(file, line)) {
     stringstream lineStream(line);
