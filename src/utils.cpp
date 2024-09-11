@@ -1,6 +1,4 @@
-// Copyright 2024 <Your Company Name>
-
-#include "src/utils.h"
+#include "utils.h"
 #include <cmath>
 #include <numeric>
 #include <cassert>
